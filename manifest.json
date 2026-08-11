@@ -1,0 +1,16 @@
+{
+  "name": "imamAlergiju",
+  "short_name": "imamAlergiju",
+  "description": "Skeniraj barkod i odmah saznaj ima li proizvod alergen koji te se tiče.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#fdf6ec",
+  "theme_color": "#e8683c",
+  "lang": "bs",
+  "icons": [
+    { "src": "icons/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "icons/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "maskable" }
+  ]
+}

@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="bs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>imamAlergiju</title>
+  <meta name="theme-color" content="#e8683c" />
+  <meta name="description" content="Skeniraj barkod i odmah saznaj ima li proizvod alergen koji te se tiče." />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="apple-touch-icon" href="icons/icon.svg" />
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header>
+    <h1>imamAlergiju</h1>
+    <p>Skeniraj proizvod, saznaj odmah.</p>
+  </header>
+
+  <main>
+    <!-- ===== POČETNA ===== -->
+    <section class="tab-content active" id="tab-home">
+      <button class="active-profile-chip" id="active-profile-chip">
+        👤 <span id="active-profile-name">— nema profila —</span>
+      </button>
+
+      <div class="card" id="start-view">
+        <button class="btn" id="btn-scan">📷 Skeniraj barkod</button>
+        <p class="hint">Kamera se koristi samo za čitanje barkoda, ništa se ne snima ni šalje.</p>
+      </div>
+
+      <div class="card" id="scanner-view">
+        <div class="video-wrap">
+          <video id="video" playsinline autoplay muted></video>
+          <div class="scan-frame"></div>
+        </div>
+        <p class="status" id="scan-status">Usmjeri kameru na barkod proizvoda.</p>
+        <button class="btn secondary" id="btn-cancel">Otkaži</button>
+      </div>
+
+      <div class="card">
+        <p class="hint" style="margin-top:0">Ako kamera ne pročita kod, unesi ga ručno:</p>
+        <div class="manual-entry">
+          <input type="text" inputmode="numeric" pattern="[0-9]*" id="manual-code" placeholder="npr. 3017620422003" />
+          <button class="btn" id="btn-manual" style="width:auto;padding:14px 18px;">OK</button>
+        </div>
+      </div>
+
+      <div class="card" id="result">
+        <div class="semaphore-banner" id="semaphore-banner"></div>
+        <p class="result-name" id="result-name"></p>
+        <p class="hint" id="result-detail"></p>
+        <button class="btn secondary" id="btn-add-product" style="display:none; margin-bottom:14px;">➕ Dodaj proizvod u bazu</button>
+        <button class="btn secondary" id="btn-edit-allergens" style="display:none; margin-bottom:14px;">✏️ Ispravi alergene</button>
+        <div class="disclaimer-banner" id="disclaimer-banner">
+          ⚠️ Ove informacije nisu 100% pouzdane. Uvijek provjerite deklaraciju na proizvodu.
+        </div>
+        <p class="hint">Barkod: <span id="result-code"></span></p>
+      </div>
+
+      <div class="card" id="contribute-card" style="display:none">
+        <div class="disclaimer-banner" style="margin-top:0;">
+          📦 Ovi podaci idu direktno u <strong>OpenFoodFacts</strong> — javnu, besplatnu bazu koju koristi ova i mnoge druge aplikacije. Hvala što doprinosiš za dobrobit svih!
+        </div>
+
+        <p class="result-name" id="contribute-mode-label" style="margin-top:0;"></p>
+        <p class="hint">Barkod: <strong id="contribute-barcode"></strong></p>
+
+        <label class="hint" for="contribute-name">Naziv proizvoda</label>
+        <input type="text" id="contribute-name" class="field-input" placeholder="npr. Čokolino 250g" />
+
+        <p class="hint" style="margin-bottom:6px;">Proizvod sadrži:</p>
+        <div class="allergen-list" id="contribute-allergens-contains"></div>
+
+        <p class="hint" style="margin-bottom:6px; margin-top:14px;">Može sadržati u tragovima:</p>
+        <div class="allergen-list" id="contribute-allergens-traces"></div>
+
+        <label class="hint" for="contribute-photo-front" style="margin-top:14px; display:block;">Slika ambalaže/barkoda (opciono)</label>
+        <input type="file" accept="image/*" capture="environment" id="contribute-photo-front" />
+
+        <label class="hint" for="contribute-photo-ingredients" style="margin-top:10px; display:block;">Slika deklaracije/sastojaka (opciono)</label>
+        <input type="file" accept="image/*" capture="environment" id="contribute-photo-ingredients" />
+
+        <hr style="margin:16px 0; border:none; border-top:1px solid #eee;" />
+
+        <p class="hint" style="margin-top:0;">Za slanje treba besplatan OpenFoodFacts nalog (sprječava zloupotrebu baze). <a href="https://world.openfoodfacts.org/cgi/user.pl?type=add&action=display" target="_blank" rel="noopener">Napravi nalog</a> ako ga nemaš. <strong>Važno:</strong> unesi korisničko ime, ne email adresu.</p>
+        <input type="text" id="off-username" class="field-input" placeholder="korisničko ime (ne email!)" style="margin-bottom:10px;" />
+        <input type="password" id="off-password" class="field-input" placeholder="OpenFoodFacts lozinka" />
+        <p class="hint" style="margin-top:4px;">Podaci se pamte na ovom telefonu da ih ne kucaš svaki put. <a href="#" id="forget-off-credentials">Zaboravi ih</a></p>
+
+        <p class="status" id="contribute-status" style="margin-top:12px;"></p>
+
+        <div style="display:flex; gap:8px; margin-top:8px;">
+          <button class="btn" id="btn-submit-contribution">Pošalji doprinos</button>
+          <button class="btn secondary" id="btn-cancel-contribution">Otkaži</button>
+        </div>
+
+        <p class="hint" style="margin-top:14px; text-align:center;">
+          <a id="contribute-fallback-link" href="#" target="_blank" rel="noopener">Ili dodaj direktno na OpenFoodFacts sajtu ↗</a>
+        </p>
+      </div>
+    </section>
+
+    <!-- ===== PROFIL ===== -->
+    <section class="tab-content" id="tab-profile">
+      <div class="card" id="profile-manager">
+        <div id="profile-list"></div>
+        <button class="btn secondary" id="btn-add-person">+ Dodaj osobu</button>
+
+        <div id="profile-form" style="display:none">
+          <p class="hint" style="margin-top:14px">Ime osobe:</p>
+          <input type="text" id="profile-name-input" placeholder="npr. Dijete 1" class="field-input" />
+          <p class="hint" style="margin-top:0">Alergeni:</p>
+          <div class="allergen-list" id="profile-allergen-list"></div>
+          <div style="display:flex; gap:8px; margin-top:14px;">
+            <button class="btn" id="btn-save-profile">Sačuvaj</button>
+            <button class="btn secondary" id="btn-cancel-profile">Otkaži</button>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <a href="https://ko-fi.com/imamAlergiju" class="footer-link" target="_blank" rel="noopener">💛 Podrži aplikaciju</a>
+        <!-- TODO: zamijeni "#" pravim URL-om bloga -->
+        <a href="#" class="footer-link" target="_blank" rel="noopener">📝 Blog</a>
+      </footer>
+    </section>
+
+    <!-- ===== ISTORIJA ===== -->
+    <section class="tab-content" id="tab-history">
+      <div class="card" id="history-card">
+        <div class="history-header">
+          <p class="hint" style="margin:0">Skenirani proizvodi:</p>
+          <button class="icon-btn" id="btn-clear-history" title="Obriši sve">🗑️ Obriši sve</button>
+        </div>
+        <div id="history-list"></div>
+      </div>
+    </section>
+  </main>
+
+  <nav class="bottom-nav">
+    <button class="nav-item active" data-tab="tab-home">
+      <span class="nav-icon">🏠</span><span>Početna</span>
+    </button>
+    <button class="nav-item" data-tab="tab-profile">
+      <span class="nav-icon">👤</span><span>Profil</span>
+    </button>
+    <button class="nav-item" data-tab="tab-history">
+      <span class="nav-icon">🕘</span><span>Istorija</span>
+    </button>
+  </nav>
+
+  <script src="js/allergens.js"></script>
+  <script src="js/offapi.js"></script>
+  <script src="js/offwrite.js"></script>
+  <script src="js/profiles.js"></script>
+  <script src="js/history.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

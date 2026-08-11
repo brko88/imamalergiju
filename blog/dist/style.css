@@ -1,0 +1,160 @@
+:root {
+  --bg: #fdf6ec;
+  --ink: #2e2620;
+  --accent: #e8683c;
+  --accent-dark: #c94f28;
+  --card: #ffffff;
+  --muted: #8a7f72;
+  --radius: 18px;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.wrap {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 24px 20px 60px;
+}
+
+header.site {
+  text-align: center;
+  padding: 20px 0 10px;
+}
+
+header.site a {
+  text-decoration: none;
+  color: inherit;
+}
+
+header.site h1 {
+  margin: 0;
+  font-size: 1.7rem;
+  color: var(--accent-dark);
+}
+
+header.site p {
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 20px;
+  color: var(--accent-dark);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.post-card {
+  display: block;
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+  text-decoration: none;
+  color: inherit;
+}
+
+.post-card img.cover-thumb {
+  width: 100%;
+  border-radius: 12px;
+  margin-bottom: 12px;
+  display: block;
+  object-fit: cover;
+  max-height: 220px;
+}
+
+.post-card h2 {
+  margin: 0 0 4px;
+  font-size: 1.25rem;
+  color: var(--accent-dark);
+}
+
+.post-date {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+article.post {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 28px 24px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+}
+
+article.post h1 {
+  color: var(--accent-dark);
+  margin-top: 0;
+  font-size: 1.6rem;
+}
+
+article.post img.cover {
+  width: 100%;
+  border-radius: 14px;
+  margin: 0 0 20px;
+  display: block;
+}
+
+article.post .content {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.08rem;
+  line-height: 1.7;
+}
+
+article.post .content h2 {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: var(--accent-dark);
+  margin-top: 28px;
+}
+
+article.post .content h3 {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: var(--accent-dark);
+}
+
+article.post .content img {
+  max-width: 100%;
+  border-radius: 12px;
+  margin: 16px 0;
+  display: block;
+}
+
+article.post .content a {
+  color: var(--accent-dark);
+}
+
+article.post .content code {
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  background: var(--bg);
+  padding: 2px 6px;
+  border-radius: 6px;
+  font-size: 0.9em;
+}
+
+article.post .content pre {
+  background: var(--bg);
+  padding: 14px 16px;
+  border-radius: 12px;
+  overflow-x: auto;
+}
+
+article.post .content pre code {
+  background: none;
+  padding: 0;
+}
+
+.empty-hint {
+  color: var(--muted);
+  text-align: center;
+  padding: 30px 0;
+}
