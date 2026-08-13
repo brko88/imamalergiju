@@ -188,8 +188,11 @@ function renderHistoryList() {
     <div class="history-row">
       <div class="history-dot ${e.level}"></div>
       <div class="history-info">
-        <strong>${escapeHtml(e.name || 'Nepoznat proizvod')}</strong>
-        <span class="history-meta">${escapeHtml(e.barcode)} · ${formatHistoryTimestamp(e.timestamp)} · ${escapeHtml(e.profileName)}</span>
+        <div class="history-top">
+          <strong>${escapeHtml(e.name || 'Nepoznat proizvod')}</strong>
+          <span class="history-profile-badge">👤 ${escapeHtml(e.profileName)}</span>
+        </div>
+        <span class="history-meta">${escapeHtml(e.barcode)} · ${formatHistoryTimestamp(e.timestamp)}</span>
       </div>
       <button class="icon-btn" data-action="delete" data-id="${e.id}" title="Obriši">🗑️</button>
     </div>
