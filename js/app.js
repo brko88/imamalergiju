@@ -67,6 +67,8 @@ function escapeHtml(str) {
 function switchTab(tabId) {
   tabContents.forEach((el) => el.classList.toggle('active', el.id === tabId));
   navItems.forEach((el) => el.classList.toggle('active', el.dataset.tab === tabId));
+  if (tabId === 'tab-history') renderHistoryList();
+  if (tabId === 'tab-profile') renderProfileList();
 }
 
 navItems.forEach((el) => {
