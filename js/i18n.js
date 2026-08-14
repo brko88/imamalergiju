@@ -7,8 +7,20 @@ const LANGS = [
   { code: 'de', flag: '🇩🇪', label: 'Deutsch' }
 ];
 
+// Koristi se samo dok korisnik ručno ne izabere jezik (tada setLang() to trajno upamti).
+// navigator.language je jezik telefona/browsera — precizniji i privatniji izbor od
+// nagađanja preko IP adrese/države (bez mrežnog poziva, radi i offline).
+function detectBrowserLang() {
+  const candidates = navigator.languages || [navigator.language || ''];
+  for (const raw of candidates) {
+    const code = (raw || '').slice(0, 2).toLowerCase();
+    if (LANGS.some((l) => l.code === code)) return code;
+  }
+  return 'bs';
+}
+
 function getLang() {
-  return localStorage.getItem(LANG_KEY) || 'bs';
+  return localStorage.getItem(LANG_KEY) || detectBrowserLang();
 }
 
 function setLang(lang) {
