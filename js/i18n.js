@@ -1,5 +1,12 @@
 const LANG_KEY = 'imamalergiju:lang';
 
+// Jedno mjesto za dodavanje novog jezika u dropdown — kod za string tabelu je odvojen (STRINGS ispod).
+const LANGS = [
+  { code: 'bs', flag: '🇧🇦', label: 'Bosanski' },
+  { code: 'en', flag: '🇬🇧', label: 'English' },
+  { code: 'de', flag: '🇩🇪', label: 'Deutsch' }
+];
+
 function getLang() {
   return localStorage.getItem(LANG_KEY) || 'bs';
 }

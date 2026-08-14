@@ -45,7 +45,10 @@ const btnSubmitContribution = document.getElementById('btn-submit-contribution')
 const btnCancelContribution = document.getElementById('btn-cancel-contribution');
 const contributeFallbackLink = document.getElementById('contribute-fallback-link');
 const contributeModeLabel = document.getElementById('contribute-mode-label');
-const langFlagButtons = document.querySelectorAll('.lang-flag');
+const langCurrentBtn = document.getElementById('lang-current-btn');
+const langCurrentFlag = document.getElementById('lang-current-flag');
+const langCurrentCode = document.getElementById('lang-current-code');
+const langDropdown = document.getElementById('lang-dropdown');
 
 const OFF_USERNAME_KEY = 'imamalergiju:offUsername';
 const OFF_PASSWORD_KEY = 'imamalergiju:offPassword';
@@ -107,18 +110,38 @@ function refreshDynamicText() {
   }
 }
 
-function updateLangSwitchLabel() {
-  langFlagButtons.forEach((btn) => {
-    btn.classList.toggle('active', btn.dataset.lang === getLang());
-  });
+function renderLangDropdown() {
+  langDropdown.innerHTML = LANGS.map((l) => `
+    <button class="lang-option ${l.code === getLang() ? 'active' : ''}" data-lang="${l.code}">
+      <span>${l.flag}</span><span>${l.code.toUpperCase()}</span>
+    </button>
+  `).join('');
 }
 
-langFlagButtons.forEach((btn) => {
-  btn.addEventListener('click', () => {
-    setLang(btn.dataset.lang);
-    updateLangSwitchLabel();
-    refreshDynamicText();
-  });
+function updateLangSwitchLabel() {
+  const current = LANGS.find((l) => l.code === getLang()) || LANGS[0];
+  langCurrentFlag.textContent = current.flag;
+  langCurrentCode.textContent = current.code.toUpperCase();
+  renderLangDropdown();
+}
+
+langCurrentBtn.addEventListener('click', () => {
+  langDropdown.classList.toggle('open');
+});
+
+langDropdown.addEventListener('click', (e) => {
+  const btn = e.target.closest('.lang-option');
+  if (!btn) return;
+  setLang(btn.dataset.lang);
+  updateLangSwitchLabel();
+  refreshDynamicText();
+  langDropdown.classList.remove('open');
+});
+
+document.addEventListener('click', (e) => {
+  if (!e.target.closest('#lang-switch')) {
+    langDropdown.classList.remove('open');
+  }
 });
 
 // --- Profili ---
