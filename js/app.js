@@ -52,6 +52,22 @@ const OFF_PASSWORD_KEY = 'imamalergiju:offPassword';
 
 let stream = null;
 let detectLoopId = null;
+let pendingCode = null;
+let pendingCodeCount = 0;
+
+// Opšta GS1 provjera kontrolne cifre (radi za EAN-13, EAN-8, UPC-A) — kamera
+// ponekad pogrešno pročita cifru zbog loše svjetlosti/ugla, pa broj koji ne
+// prođe ovu provjeru sigurno nije ispravno očitan i ne treba ga prihvatiti.
+function isValidGtinChecksum(code) {
+  if (!/^\d{8}$|^\d{12}$|^\d{13}$|^\d{14}$/.test(code)) return false;
+  const digits = code.split('').map(Number);
+  const checkDigit = digits.pop();
+  let sum = 0;
+  for (let i = digits.length - 1, pos = 1; i >= 0; i--, pos++) {
+    sum += digits[i] * (pos % 2 === 1 ? 3 : 1);
+  }
+  return (10 - (sum % 10)) % 10 === checkDigit;
+}
 let editingProfileId = null;
 let lastScannedCode = null;
 let lastScannedProduct = null;
@@ -467,6 +483,8 @@ async function startScanner() {
   startView.style.display = 'none';
   scannerView.classList.add('active');
   resultCard.classList.remove('active');
+  pendingCode = null;
+  pendingCodeCount = 0;
 
   const detector = new BarcodeDetector({
     formats: ['ean_13', 'ean_8', 'upc_a', 'upc_e']
@@ -477,8 +495,21 @@ async function startScanner() {
     try {
       const codes = await detector.detect(video);
       if (codes.length > 0) {
-        handleBarcode(codes[0].rawValue);
-        return;
+        const candidate = codes[0].rawValue;
+        if (isValidGtinChecksum(candidate)) {
+          if (candidate === pendingCode) {
+            pendingCodeCount++;
+          } else {
+            pendingCode = candidate;
+            pendingCodeCount = 1;
+          }
+          // tražimo isti broj u 2 uzastopna framea prije nego ga prihvatimo —
+          // filtrira jednokratne pogrešne očitaje.
+          if (pendingCodeCount >= 2) {
+            handleBarcode(candidate);
+            return;
+          }
+        }
       }
     } catch (err) {
       // frame not ready yet or detection glitch — keep trying
