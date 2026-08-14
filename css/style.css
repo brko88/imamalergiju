@@ -29,8 +29,23 @@ body {
 }
 
 header {
+  position: relative;
   padding: 20px 20px 10px;
   text-align: center;
+}
+
+.lang-switch {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: var(--card);
+  color: var(--accent-dark);
+  border: 2px solid var(--accent);
+  border-radius: 999px;
+  padding: 4px 12px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
 }
 
 header h1 {

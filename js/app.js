@@ -45,7 +45,7 @@ const btnSubmitContribution = document.getElementById('btn-submit-contribution')
 const btnCancelContribution = document.getElementById('btn-cancel-contribution');
 const contributeFallbackLink = document.getElementById('contribute-fallback-link');
 const contributeModeLabel = document.getElementById('contribute-mode-label');
-const forgetOffCredentials = document.getElementById('forget-off-credentials');
+const btnLangSwitch = document.getElementById('btn-lang-switch');
 
 const OFF_USERNAME_KEY = 'imamalergiju:offUsername';
 const OFF_PASSWORD_KEY = 'imamalergiju:offPassword';
@@ -77,11 +77,35 @@ navItems.forEach((el) => {
 
 activeProfileChip.addEventListener('click', () => switchTab('tab-profile'));
 
+// --- Jezik ---
+
+function refreshDynamicText() {
+  applyStaticTranslations();
+  renderProfileSummary();
+  renderProfileList();
+  renderHistoryList();
+  if (profileForm.style.display !== 'none') {
+    renderProfileAllergenCheckboxes(
+      editingProfileId ? loadProfiles().find((p) => p.id === editingProfileId)?.allergenIds || [] : []
+    );
+  }
+}
+
+function updateLangSwitchLabel() {
+  btnLangSwitch.textContent = getLang() === 'en' ? 'BS' : 'EN';
+}
+
+btnLangSwitch.addEventListener('click', () => {
+  setLang(getLang() === 'en' ? 'bs' : 'en');
+  updateLangSwitchLabel();
+  refreshDynamicText();
+});
+
 // --- Profili ---
 
 function renderProfileSummary() {
   const active = getActiveProfile();
-  activeProfileName.textContent = active ? active.name : '— nema profila —';
+  activeProfileName.textContent = active ? active.name : t('profile.none');
 }
 
 function renderProfileList() {
@@ -89,7 +113,7 @@ function renderProfileList() {
   const activeId = getActiveProfileId();
 
   if (profiles.length === 0) {
-    profileList.innerHTML = '<p class="empty-hint">Još nema dodanih osoba.</p>';
+    profileList.innerHTML = `<p class="empty-hint">${t('profile.emptyHint')}</p>`;
     return;
   }
 
@@ -97,11 +121,11 @@ function renderProfileList() {
     <div class="profile-row ${p.id === activeId ? 'active' : ''}" data-id="${p.id}">
       <button class="profile-select" data-action="select" data-id="${p.id}">
         <strong>${escapeHtml(p.name)}</strong>
-        <span class="profile-meta">${p.allergenIds.length} alergen(a)</span>
+        <span class="profile-meta">${t('profile.allergenCount', p.allergenIds.length)}</span>
       </button>
-      <button class="icon-btn" data-action="share" data-id="${p.id}" title="Podijeli">📤</button>
-      <button class="icon-btn" data-action="edit" data-id="${p.id}" title="Uredi">✏️</button>
-      <button class="icon-btn" data-action="delete" data-id="${p.id}" title="Obriši">🗑️</button>
+      <button class="icon-btn" data-action="share" data-id="${p.id}" title="${t('common.share')}">📤</button>
+      <button class="icon-btn" data-action="edit" data-id="${p.id}" title="${t('common.edit')}">✏️</button>
+      <button class="icon-btn" data-action="delete" data-id="${p.id}" title="${t('common.delete')}">🗑️</button>
     </div>
   `).join('');
 }
@@ -114,11 +138,11 @@ function buildProfileShareUrl(profile) {
 
 async function shareProfile(profile) {
   const url = buildProfileShareUrl(profile);
-  const text = `Alergeni za ${profile.name} — otvori link, app se sama podesi.`;
+  const text = t('share.text', profile.name);
 
   if (navigator.share) {
     try {
-      await navigator.share({ title: 'imamAlergiju profil', text, url });
+      await navigator.share({ title: t('share.title'), text, url });
     } catch (e) {
       // korisnik otkazao dijeljenje — ništa ne radimo
     }
@@ -127,16 +151,16 @@ async function shareProfile(profile) {
 
   try {
     await navigator.clipboard.writeText(url);
-    alert('Link je kopiran u clipboard. Pošalji ga kome želiš.');
+    alert(t('share.copied'));
   } catch (e) {
-    prompt('Kopiraj ovaj link ručno:', url);
+    prompt(t('share.copyManually'), url);
   }
 }
 
 function renderProfileAllergenCheckboxes(selectedIds = []) {
   profileAllergenList.innerHTML = ALLERGENS.map((a) => `
     <label class="allergen-item">
-      <input type="checkbox" value="${a.id}" ${selectedIds.includes(a.id) ? 'checked' : ''} /> ${a.label}
+      <input type="checkbox" value="${a.id}" ${selectedIds.includes(a.id) ? 'checked' : ''} /> ${allergenLabel(a)}
     </label>
   `).join('');
 }
@@ -194,7 +218,7 @@ profileList.addEventListener('click', (e) => {
   } else if (action === 'edit') {
     if (profile) openProfileForm(profile);
   } else if (action === 'delete') {
-    if (profile && confirm(`Obrisati profil "${profile.name}"?`)) {
+    if (profile && confirm(t('profile.confirmDelete', profile.name))) {
       deleteProfile(id);
       renderProfileList();
       renderProfileSummary();
@@ -205,13 +229,13 @@ profileList.addEventListener('click', (e) => {
 // --- Istorija ---
 
 function formatHistoryTimestamp(ts) {
-  return new Date(ts).toLocaleString();
+  return new Date(ts).toLocaleString(localeForLang(getLang()));
 }
 
 function renderHistoryList() {
   const entries = loadHistory();
   if (entries.length === 0) {
-    historyList.innerHTML = '<p class="empty-hint">Još nema skeniranih proizvoda.</p>';
+    historyList.innerHTML = `<p class="empty-hint">${t('history.emptyHint')}</p>`;
     return;
   }
   historyList.innerHTML = entries.map((e) => `
@@ -219,19 +243,19 @@ function renderHistoryList() {
       <div class="history-dot ${e.level}"></div>
       <div class="history-info">
         <div class="history-top">
-          <strong>${escapeHtml(e.name || 'Nepoznat proizvod')}</strong>
+          <strong>${escapeHtml(e.name || t('history.unknownProduct'))}</strong>
           <span class="history-profile-badge">👤 ${escapeHtml(e.profileName)}</span>
         </div>
         <span class="history-meta">${escapeHtml(e.barcode)} · ${formatHistoryTimestamp(e.timestamp)}</span>
       </div>
-      <button class="icon-btn" data-action="delete" data-id="${e.id}" title="Obriši">🗑️</button>
+      <button class="icon-btn" data-action="delete" data-id="${e.id}" title="${t('common.delete')}">🗑️</button>
     </div>
   `).join('');
 }
 
 btnClearHistory.addEventListener('click', () => {
   if (loadHistory().length === 0) return;
-  if (confirm('Obrisati cijelu istoriju skeniranja?')) {
+  if (confirm(t('history.confirmClearAll'))) {
     clearHistory();
     renderHistoryList();
   }
@@ -249,7 +273,7 @@ historyList.addEventListener('click', (e) => {
 function renderContributeAllergenCheckboxes(container, selectedIds = []) {
   container.innerHTML = ALLERGENS.map((a) => `
     <label class="allergen-item">
-      <input type="checkbox" value="${a.id}" ${selectedIds.includes(a.id) ? 'checked' : ''} /> ${a.label}
+      <input type="checkbox" value="${a.id}" ${selectedIds.includes(a.id) ? 'checked' : ''} /> ${allergenLabel(a)}
     </label>
   `).join('');
 }
@@ -259,7 +283,7 @@ function openContributeForm(code, prefill) {
   contributeName.value = prefill ? (prefill.name || '') : '';
   renderContributeAllergenCheckboxes(contributeAllergensContains, prefill ? prefill.containsIds : []);
   renderContributeAllergenCheckboxes(contributeAllergensTraces, prefill ? prefill.tracesIds : []);
-  contributeModeLabel.textContent = prefill ? '✏️ Ispravljaš postojeći proizvod' : '➕ Dodaješ novi proizvod';
+  contributeModeLabel.textContent = prefill ? t('contribute.modeEdit') : t('contribute.modeAdd');
   contributePhotoFront.value = '';
   contributePhotoIngredients.value = '';
   offUsernameInput.value = localStorage.getItem(OFF_USERNAME_KEY) || '';
@@ -290,7 +314,10 @@ btnEditAllergens.addEventListener('click', () => {
 
 btnCancelContribution.addEventListener('click', closeContributeForm);
 
-forgetOffCredentials.addEventListener('click', (e) => {
+// Delegirano jer se #forget-off-credentials rekreira svaki put kad se
+// contribute.credentialsNote prevede (innerHTML se mijenja pri promjeni jezika).
+contributeCard.addEventListener('click', (e) => {
+  if (!e.target.closest('#forget-off-credentials')) return;
   e.preventDefault();
   localStorage.removeItem(OFF_USERNAME_KEY);
   localStorage.removeItem(OFF_PASSWORD_KEY);
@@ -307,20 +334,20 @@ btnSubmitContribution.addEventListener('click', async () => {
   const tracesIds = Array.from(contributeAllergensTraces.querySelectorAll('input:checked')).map((el) => el.value);
 
   if (!name) {
-    contributeStatus.textContent = 'Unesi naziv proizvoda.';
+    contributeStatus.textContent = t('contribute.errNoName');
     contributeStatus.classList.add('error');
     contributeName.focus();
     return;
   }
   if (!userId || !password) {
-    contributeStatus.textContent = 'Unesi OpenFoodFacts korisničko ime i lozinku.';
+    contributeStatus.textContent = t('contribute.errNoCreds');
     contributeStatus.classList.add('error');
     return;
   }
 
   btnSubmitContribution.disabled = true;
   contributeStatus.classList.remove('error');
-  contributeStatus.textContent = 'Šaljem...';
+  contributeStatus.textContent = t('contribute.sending');
 
   try {
     await submitProductFields({ code, name, containsIds, tracesIds, userId, password });
@@ -330,17 +357,17 @@ btnSubmitContribution.addEventListener('click', async () => {
     const frontFile = contributePhotoFront.files[0];
     const ingredientsFile = contributePhotoIngredients.files[0];
     if (frontFile) {
-      contributeStatus.textContent = 'Šaljem sliku ambalaže...';
+      contributeStatus.textContent = t('contribute.sendingFrontPhoto');
       await uploadProductImage({ code, imagefield: 'front', file: frontFile, userId, password });
     }
     if (ingredientsFile) {
-      contributeStatus.textContent = 'Šaljem sliku deklaracije...';
+      contributeStatus.textContent = t('contribute.sendingIngredientsPhoto');
       await uploadProductImage({ code, imagefield: 'ingredients', file: ingredientsFile, userId, password });
     }
 
-    contributeStatus.textContent = '✅ Hvala! Podaci su poslani u OpenFoodFacts. Može potrajati par minuta dok se pojave u bazi.';
+    contributeStatus.textContent = t('contribute.success');
   } catch (err) {
-    contributeStatus.textContent = `⚠️ Slanje nije uspjelo: ${err.message}`;
+    contributeStatus.textContent = t('contribute.failPrefix', err.message);
     contributeStatus.classList.add('error');
   } finally {
     btnSubmitContribution.disabled = false;
@@ -366,11 +393,11 @@ async function handleBarcode(code) {
   btnEditAllergens.style.display = 'none';
   lastScannedProduct = null;
   disclaimerBanner.classList.remove('emphasized');
-  setBanner('unknown', 'Provjeravam...');
+  setBanner('unknown', t('scan.checking'));
 
   const activeProfile = getActiveProfile();
   if (!activeProfile) {
-    setBanner('unknown', 'ℹ️ Napravi i izaberi profil prije skeniranja.');
+    setBanner('unknown', t('scan.needProfile'));
     switchTab('tab-profile');
     return;
   }
@@ -379,13 +406,13 @@ async function handleBarcode(code) {
   try {
     product = await fetchProduct(code);
   } catch (err) {
-    setBanner('unknown', '⚠️ Greška pri povezivanju na bazu. Provjeri internet i pokušaj ponovo.');
+    setBanner('unknown', t('scan.networkError'));
     return;
   }
 
   if (!product.found) {
-    setBanner('unknown', '❔ Proizvod nije pronađen.');
-    resultDetail.textContent = 'Ovaj proizvod nije u bazi. Provjeri deklaraciju ručno, ili ga dodaj u bazu da pomogneš drugima.';
+    setBanner('unknown', t('scan.notFound'));
+    resultDetail.textContent = t('scan.notFoundDetail');
     btnAddProduct.style.display = 'block';
     addHistoryEntry({ barcode: code, name: null, level: 'unknown', matchedNames: [], profileName: activeProfile.name });
     return;
@@ -393,31 +420,31 @@ async function handleBarcode(code) {
 
   lastScannedProduct = product;
   btnEditAllergens.style.display = 'block';
-  resultName.textContent = product.name || '(proizvod bez naziva u bazi)';
+  resultName.textContent = product.name || t('scan.noNameProduct');
 
   if (activeProfile.allergenIds.length === 0) {
-    setBanner('unknown', `ℹ️ ${activeProfile.name} nema izabranih alergena. Uredi profil.`);
+    setBanner('unknown', t('scan.noAllergensSelected', activeProfile.name));
     addHistoryEntry({ barcode: code, name: product.name, level: 'unknown', matchedNames: [], profileName: activeProfile.name });
     return;
   }
 
   const { level, matched } = matchAllergens(activeProfile.allergenIds, product.allergensTags, product.tracesTags);
-  const names = matched.map((a) => a.label).join(', ');
+  const names = matched.map((a) => allergenLabel(a)).join(', ');
 
   if (level === 'red') {
-    setBanner('red', `🔴 Sadrži: ${names}`);
+    setBanner('red', t('scan.contains', names));
   } else if (level === 'orange') {
-    setBanner('orange', `🟠 Može sadržati u tragovima: ${names}`);
+    setBanner('orange', t('scan.mayContain', names));
   } else {
-    setBanner('green', '🟢 Nema izabranih alergena u proizvodu');
+    setBanner('green', t('scan.clear'));
     disclaimerBanner.classList.add('emphasized');
   }
-  addHistoryEntry({ barcode: code, name: product.name, level, matchedNames: matched.map((a) => a.label), profileName: activeProfile.name });
+  addHistoryEntry({ barcode: code, name: product.name, level, matchedNames: matched.map((a) => allergenLabel(a)), profileName: activeProfile.name });
 }
 
 async function startScanner() {
   if (!('BarcodeDetector' in window)) {
-    scanStatus.textContent = 'Ovaj browser ne podržava čitanje barkoda kamerom. Koristi ručni unos ispod.';
+    scanStatus.textContent = t('scanner.unsupported');
     scanStatus.classList.add('error');
     scannerView.classList.add('active');
     startView.style.display = 'none';
@@ -429,7 +456,7 @@ async function startScanner() {
       video: { facingMode: 'environment' }
     });
   } catch (err) {
-    scanStatus.textContent = 'Nije moguće pristupiti kameri. Provjeri dozvole ili koristi ručni unos.';
+    scanStatus.textContent = t('scanner.cameraError');
     scanStatus.classList.add('error');
     scannerView.classList.add('active');
     startView.style.display = 'none';
@@ -510,9 +537,9 @@ function importSharedProfileFromUrl() {
   if (!data || typeof data.name !== 'string' || !Array.isArray(data.allergenIds)) return false;
 
   const validIds = data.allergenIds.filter((id) => ALLERGENS.some((a) => a.id === id));
-  const labels = ALLERGENS.filter((a) => validIds.includes(a.id)).map((a) => a.label).join(', ') || 'nema izabranih alergena';
+  const labels = ALLERGENS.filter((a) => validIds.includes(a.id)).map((a) => allergenLabel(a)).join(', ') || t('share.noAllergensFallback');
 
-  const wantsImport = confirm(`Neko ti je poslao profil "${data.name}" (${labels}).\n\nDodati ovaj profil i odmah ga postaviti kao aktivan?`);
+  const wantsImport = confirm(t('share.importConfirm', data.name, labels));
   if (!wantsImport) return false;
 
   const profile = { id: createProfileId(), name: data.name.slice(0, 60), allergenIds: validIds };
@@ -520,6 +547,9 @@ function importSharedProfileFromUrl() {
   setActiveProfileId(profile.id);
   return true;
 }
+
+applyStaticTranslations();
+updateLangSwitchLabel();
 
 const importedSharedProfile = importSharedProfileFromUrl();
 

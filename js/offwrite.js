@@ -13,9 +13,9 @@ async function parseOffResponse(response) {
     return await response.json();
   } catch (e) {
     if (response.status === 403) {
-      throw new Error('Pogrešno korisničko ime ili lozinka. Napomena: OFF traži korisničko ime, ne email adresu.');
+      throw new Error(t('off.wrongCreds'));
     }
-    throw new Error('Neispravan odgovor od OpenFoodFacts servera.');
+    throw new Error(t('off.badResponse'));
   }
 }
 
@@ -30,7 +30,7 @@ async function submitProductFields({ code, name, containsIds, tracesIds, userId,
   form.set('user_id', userId);
   form.set('password', password);
   form.set('product_name', name);
-  form.set('lang', 'bs');
+  form.set('lang', getLang());
 
   const containsTags = allergenIdsToOffTags(containsIds);
   const tracesTags = allergenIdsToOffTags(tracesIds);
@@ -45,7 +45,7 @@ async function submitProductFields({ code, name, containsIds, tracesIds, userId,
   const data = await parseOffResponse(response);
 
   if (data.status !== 1) {
-    throw new Error(data.status_verbose || 'OpenFoodFacts je odbio podatke (provjeri korisničko ime/lozinku).');
+    throw new Error(data.status_verbose || t('off.rejected'));
   }
   return data;
 }

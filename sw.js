@@ -1,9 +1,10 @@
-const CACHE_NAME = 'imamalergiju-v22';
+const CACHE_NAME = 'imamalergiju-v23';
 const APP_SHELL = [
   './',
   './index.html',
   './manifest.json',
   './css/style.css',
+  './js/i18n.js',
   './js/allergens.js',
   './js/offapi.js',
   './js/offwrite.js',

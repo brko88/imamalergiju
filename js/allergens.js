@@ -2,29 +2,34 @@
 // OFF već normalizuje sastojke (na bilo kom jeziku) u ove tagove, pa ne moramo
 // sami parsirati tekst deklaracije — samo poredimo tagove.
 const ALLERGENS = [
-  { id: 'gluten', label: 'Gluten (žitarice)', tags: ['en:gluten'] },
-  { id: 'crustaceans', label: 'Rakovi', tags: ['en:crustaceans'] },
-  { id: 'eggs', label: 'Jaja', tags: ['en:eggs'] },
-  { id: 'fish', label: 'Riba', tags: ['en:fish'] },
-  { id: 'peanuts', label: 'Kikiriki', tags: ['en:peanuts'] },
-  { id: 'soybeans', label: 'Soja', tags: ['en:soybeans'] },
-  { id: 'milk', label: 'Mlijeko', tags: ['en:milk'] },
+  { id: 'gluten', label: 'Gluten (žitarice)', labelEn: 'Gluten (cereals)', tags: ['en:gluten'] },
+  { id: 'crustaceans', label: 'Rakovi', labelEn: 'Crustaceans', tags: ['en:crustaceans'] },
+  { id: 'eggs', label: 'Jaja', labelEn: 'Eggs', tags: ['en:eggs'] },
+  { id: 'fish', label: 'Riba', labelEn: 'Fish', tags: ['en:fish'] },
+  { id: 'peanuts', label: 'Kikiriki', labelEn: 'Peanuts', tags: ['en:peanuts'] },
+  { id: 'soybeans', label: 'Soja', labelEn: 'Soybeans', tags: ['en:soybeans'] },
+  { id: 'milk', label: 'Mlijeko', labelEn: 'Milk', tags: ['en:milk'] },
   {
     id: 'nuts',
     label: 'Orašasti plodovi',
+    labelEn: 'Tree nuts',
     tags: [
       'en:nuts', 'en:hazelnuts', 'en:almonds', 'en:walnuts',
       'en:cashew-nuts', 'en:pecan-nuts', 'en:pistachios',
       'en:brazil-nuts', 'en:macadamia-nuts', 'en:queensland-nuts'
     ]
   },
-  { id: 'celery', label: 'Celer', tags: ['en:celery'] },
-  { id: 'mustard', label: 'Gorušica', tags: ['en:mustard'] },
-  { id: 'sesame-seeds', label: 'Susam', tags: ['en:sesame-seeds'] },
-  { id: 'sulphur-dioxide-and-sulphites', label: 'Sumpor-dioksid i sulfiti', tags: ['en:sulphur-dioxide-and-sulphites'] },
-  { id: 'lupin', label: 'Lupina', tags: ['en:lupin'] },
-  { id: 'molluscs', label: 'Mekušci', tags: ['en:molluscs'] }
+  { id: 'celery', label: 'Celer', labelEn: 'Celery', tags: ['en:celery'] },
+  { id: 'mustard', label: 'Gorušica', labelEn: 'Mustard', tags: ['en:mustard'] },
+  { id: 'sesame-seeds', label: 'Susam', labelEn: 'Sesame', tags: ['en:sesame-seeds'] },
+  { id: 'sulphur-dioxide-and-sulphites', label: 'Sumpor-dioksid i sulfiti', labelEn: 'Sulphur dioxide and sulphites', tags: ['en:sulphur-dioxide-and-sulphites'] },
+  { id: 'lupin', label: 'Lupina', labelEn: 'Lupin', tags: ['en:lupin'] },
+  { id: 'molluscs', label: 'Mekušci', labelEn: 'Molluscs', tags: ['en:molluscs'] }
 ];
+
+function allergenLabel(allergen) {
+  return getLang() === 'en' ? allergen.labelEn : allergen.label;
+}
 
 // selectedIds: niz id-jeva iz ALLERGENS koje trenutno provjeravamo.
 // allergensTags / tracesTags: nizovi OFF tagova sa proizvoda ("sadrži" / "može sadržati").

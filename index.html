@@ -13,8 +13,9 @@
 </head>
 <body>
   <header>
+    <button class="lang-switch" id="btn-lang-switch">EN</button>
     <h1>imamAlergiju</h1>
-    <p>Skeniraj proizvod, saznaj odmah.</p>
+    <p data-i18n="header.subtitle">Skeniraj proizvod, saznaj odmah.</p>
   </header>
 
   <main>
@@ -25,8 +26,8 @@
       </button>
 
       <div class="card" id="start-view">
-        <button class="btn" id="btn-scan">📷 Skeniraj barkod</button>
-        <p class="hint">Kamera se koristi samo za čitanje barkoda, ništa se ne snima ni šalje.</p>
+        <button class="btn" id="btn-scan" data-i18n="home.scanBtn">📷 Skeniraj barkod</button>
+        <p class="hint" data-i18n="home.scanHint">Kamera se koristi samo za čitanje barkoda, ništa se ne snima ni šalje.</p>
       </div>
 
       <div class="card" id="scanner-view">
@@ -34,14 +35,14 @@
           <video id="video" playsinline autoplay muted></video>
           <div class="scan-frame"></div>
         </div>
-        <p class="status" id="scan-status">Usmjeri kameru na barkod proizvoda.</p>
-        <button class="btn secondary" id="btn-cancel">Otkaži</button>
+        <p class="status" id="scan-status" data-i18n="home.scanStatusDefault">Usmjeri kameru na barkod proizvoda.</p>
+        <button class="btn secondary" id="btn-cancel" data-i18n="common.cancel">Otkaži</button>
       </div>
 
       <div class="card">
-        <p class="hint" style="margin-top:0">Ako kamera ne pročita kod, unesi ga ručno:</p>
+        <p class="hint" style="margin-top:0" data-i18n="home.manualHint">Ako kamera ne pročita kod, unesi ga ručno:</p>
         <div class="manual-entry">
-          <input type="text" inputmode="numeric" pattern="[0-9]*" id="manual-code" placeholder="npr. 3017620422003" />
+          <input type="text" inputmode="numeric" pattern="[0-9]*" id="manual-code" placeholder="npr. 3017620422003" data-i18n-placeholder="home.manualPlaceholder" />
           <button class="btn" id="btn-manual" style="width:auto;padding:14px 18px;">OK</button>
         </div>
       </div>
@@ -50,53 +51,53 @@
         <div class="semaphore-banner" id="semaphore-banner"></div>
         <p class="result-name" id="result-name"></p>
         <p class="hint" id="result-detail"></p>
-        <button class="btn secondary" id="btn-add-product" style="display:none; margin-bottom:14px;">➕ Dodaj proizvod u bazu</button>
-        <button class="btn secondary" id="btn-edit-allergens" style="display:none; margin-bottom:14px;">✏️ Ispravi alergene</button>
-        <div class="disclaimer-banner" id="disclaimer-banner">
+        <button class="btn secondary" id="btn-add-product" style="display:none; margin-bottom:14px;" data-i18n="result.addProductBtn">➕ Dodaj proizvod u bazu</button>
+        <button class="btn secondary" id="btn-edit-allergens" style="display:none; margin-bottom:14px;" data-i18n="result.editAllergensBtn">✏️ Ispravi alergene</button>
+        <div class="disclaimer-banner" id="disclaimer-banner" data-i18n="result.disclaimer">
           ⚠️ Ove informacije nisu 100% pouzdane. Uvijek provjerite deklaraciju na proizvodu.
         </div>
-        <p class="hint">Barkod: <span id="result-code"></span></p>
+        <p class="hint"><span data-i18n="result.barcodeLabel">Barkod:</span> <span id="result-code"></span></p>
       </div>
 
       <div class="card" id="contribute-card" style="display:none">
-        <div class="disclaimer-banner" style="margin-top:0;">
+        <div class="disclaimer-banner" style="margin-top:0;" data-i18n-html="contribute.disclaimer">
           📦 Ovi podaci idu direktno u <strong>OpenFoodFacts</strong> — javnu, besplatnu bazu koju koristi ova i mnoge druge aplikacije. Hvala što doprinosiš za dobrobit svih!
         </div>
 
         <p class="result-name" id="contribute-mode-label" style="margin-top:0;"></p>
-        <p class="hint">Barkod: <strong id="contribute-barcode"></strong></p>
+        <p class="hint"><span data-i18n="result.barcodeLabel">Barkod:</span> <strong id="contribute-barcode"></strong></p>
 
-        <label class="hint" for="contribute-name">Naziv proizvoda</label>
-        <input type="text" id="contribute-name" class="field-input" placeholder="npr. Čokolino 250g" />
+        <label class="hint" for="contribute-name" data-i18n="contribute.nameLabel">Naziv proizvoda</label>
+        <input type="text" id="contribute-name" class="field-input" placeholder="npr. Čokolino 250g" data-i18n-placeholder="contribute.namePlaceholder" />
 
-        <p class="hint" style="margin-bottom:6px;">Proizvod sadrži:</p>
+        <p class="hint" style="margin-bottom:6px;" data-i18n="contribute.containsLabel">Proizvod sadrži:</p>
         <div class="allergen-list" id="contribute-allergens-contains"></div>
 
-        <p class="hint" style="margin-bottom:6px; margin-top:14px;">Može sadržati u tragovima:</p>
+        <p class="hint" style="margin-bottom:6px; margin-top:14px;" data-i18n="contribute.tracesLabel">Može sadržati u tragovima:</p>
         <div class="allergen-list" id="contribute-allergens-traces"></div>
 
-        <label class="hint" for="contribute-photo-front" style="margin-top:14px; display:block;">Slika ambalaže/barkoda (opciono)</label>
+        <label class="hint" for="contribute-photo-front" style="margin-top:14px; display:block;" data-i18n="contribute.photoFrontLabel">Slika ambalaže/barkoda (opciono)</label>
         <input type="file" accept="image/*" capture="environment" id="contribute-photo-front" />
 
-        <label class="hint" for="contribute-photo-ingredients" style="margin-top:10px; display:block;">Slika deklaracije/sastojaka (opciono)</label>
+        <label class="hint" for="contribute-photo-ingredients" style="margin-top:10px; display:block;" data-i18n="contribute.photoIngredientsLabel">Slika deklaracije/sastojaka (opciono)</label>
         <input type="file" accept="image/*" capture="environment" id="contribute-photo-ingredients" />
 
         <hr style="margin:16px 0; border:none; border-top:1px solid #eee;" />
 
-        <p class="hint" style="margin-top:0;">Za slanje treba besplatan OpenFoodFacts nalog (sprječava zloupotrebu baze). <a href="https://world.openfoodfacts.org/cgi/user.pl?type=add&action=display" target="_blank" rel="noopener">Napravi nalog</a> ako ga nemaš. <strong>Važno:</strong> unesi korisničko ime, ne email adresu.</p>
-        <input type="text" id="off-username" class="field-input" placeholder="korisničko ime (ne email!)" style="margin-bottom:10px;" />
-        <input type="password" id="off-password" class="field-input" placeholder="OpenFoodFacts lozinka" />
-        <p class="hint" style="margin-top:4px;">Podaci se pamte na ovom telefonu da ih ne kucaš svaki put. <a href="#" id="forget-off-credentials">Zaboravi ih</a></p>
+        <p class="hint" style="margin-top:0;" data-i18n-html="contribute.offAccountNote">Za slanje treba besplatan OpenFoodFacts nalog (sprječava zloupotrebu baze). <a href="https://world.openfoodfacts.org/cgi/user.pl?type=add&action=display" target="_blank" rel="noopener">Napravi nalog</a> ako ga nemaš. <strong>Važno:</strong> unesi korisničko ime, ne email adresu.</p>
+        <input type="text" id="off-username" class="field-input" placeholder="korisničko ime (ne email!)" data-i18n-placeholder="contribute.usernamePlaceholder" style="margin-bottom:10px;" />
+        <input type="password" id="off-password" class="field-input" placeholder="OpenFoodFacts lozinka" data-i18n-placeholder="contribute.passwordPlaceholder" />
+        <p class="hint" style="margin-top:4px;" data-i18n-html="contribute.credentialsNote">Podaci se pamte na ovom telefonu da ih ne kucaš svaki put. <a href="#" id="forget-off-credentials">Zaboravi ih</a></p>
 
         <p class="status" id="contribute-status" style="margin-top:12px;"></p>
 
         <div style="display:flex; gap:8px; margin-top:8px;">
-          <button class="btn" id="btn-submit-contribution">Pošalji doprinos</button>
-          <button class="btn secondary" id="btn-cancel-contribution">Otkaži</button>
+          <button class="btn" id="btn-submit-contribution" data-i18n="contribute.submitBtn">Pošalji doprinos</button>
+          <button class="btn secondary" id="btn-cancel-contribution" data-i18n="common.cancel">Otkaži</button>
         </div>
 
         <p class="hint" style="margin-top:14px; text-align:center;">
-          <a id="contribute-fallback-link" href="#" target="_blank" rel="noopener">Ili dodaj direktno na OpenFoodFacts sajtu ↗</a>
+          <a id="contribute-fallback-link" href="#" target="_blank" rel="noopener" data-i18n="contribute.fallbackLink">Ili dodaj direktno na OpenFoodFacts sajtu ↗</a>
         </p>
       </div>
     </section>
@@ -105,24 +106,24 @@
     <section class="tab-content" id="tab-profile">
       <div class="card" id="profile-manager">
         <div id="profile-list"></div>
-        <button class="btn secondary" id="btn-add-person">+ Dodaj osobu</button>
+        <button class="btn secondary" id="btn-add-person" data-i18n="profile.addPersonBtn">+ Dodaj osobu</button>
 
         <div id="profile-form" style="display:none">
-          <p class="hint" style="margin-top:14px">Ime osobe:</p>
-          <input type="text" id="profile-name-input" placeholder="npr. Dijete 1" class="field-input" />
-          <p class="hint" style="margin-top:0">Alergeni:</p>
+          <p class="hint" style="margin-top:14px" data-i18n="profile.nameLabel">Ime osobe:</p>
+          <input type="text" id="profile-name-input" placeholder="npr. Dijete 1" data-i18n-placeholder="profile.namePlaceholder" class="field-input" />
+          <p class="hint" style="margin-top:0" data-i18n="profile.allergensLabel">Alergeni:</p>
           <div class="allergen-list" id="profile-allergen-list"></div>
           <div style="display:flex; gap:8px; margin-top:14px;">
-            <button class="btn" id="btn-save-profile">Sačuvaj</button>
-            <button class="btn secondary" id="btn-cancel-profile">Otkaži</button>
+            <button class="btn" id="btn-save-profile" data-i18n="common.save">Sačuvaj</button>
+            <button class="btn secondary" id="btn-cancel-profile" data-i18n="common.cancel">Otkaži</button>
           </div>
         </div>
       </div>
 
       <footer>
-        <a href="https://ko-fi.com/imamAlergiju" class="footer-link" target="_blank" rel="noopener">💛 Podrži aplikaciju</a>
-        <!-- TODO: zamijeni "#" pravim URL-om bloga -->
-        <a href="#" class="footer-link" target="_blank" rel="noopener">📝 Blog</a>
+        <a href="https://ko-fi.com/imamAlergiju" class="footer-link" target="_blank" rel="noopener" data-i18n="footer.support">💛 Podrži aplikaciju</a>
+        <!-- TODO: kad blog dobije svoj domen/hosting, zamijeni ovo tim URL-om -->
+        <a href="blog/dist/index.html" class="footer-link" target="_blank" rel="noopener" data-i18n="footer.blog">📝 Blog</a>
       </footer>
     </section>
 
@@ -130,8 +131,8 @@
     <section class="tab-content" id="tab-history">
       <div class="card" id="history-card">
         <div class="history-header">
-          <p class="hint" style="margin:0">Skenirani proizvodi:</p>
-          <button class="icon-btn" id="btn-clear-history" title="Obriši sve">🗑️ Obriši sve</button>
+          <p class="hint" style="margin:0" data-i18n="history.title">Skenirani proizvodi:</p>
+          <button class="icon-btn" id="btn-clear-history" data-i18n="history.clearAllBtn">🗑️ Obriši sve</button>
         </div>
         <div id="history-list"></div>
       </div>
@@ -140,16 +141,17 @@
 
   <nav class="bottom-nav">
     <button class="nav-item active" data-tab="tab-home">
-      <span class="nav-icon">🏠</span><span>Početna</span>
+      <span class="nav-icon">🏠</span><span data-i18n="nav.home">Početna</span>
     </button>
     <button class="nav-item" data-tab="tab-profile">
-      <span class="nav-icon">👤</span><span>Profil</span>
+      <span class="nav-icon">👤</span><span data-i18n="nav.profile">Profil</span>
     </button>
     <button class="nav-item" data-tab="tab-history">
-      <span class="nav-icon">🕘</span><span>Istorija</span>
+      <span class="nav-icon">🕘</span><span data-i18n="nav.history">Istorija</span>
     </button>
   </nav>
 
+  <script src="js/i18n.js"></script>
   <script src="js/allergens.js"></script>
   <script src="js/offapi.js"></script>
   <script src="js/offwrite.js"></script>
