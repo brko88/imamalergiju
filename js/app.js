@@ -99,10 +99,38 @@ function renderProfileList() {
         <strong>${escapeHtml(p.name)}</strong>
         <span class="profile-meta">${p.allergenIds.length} alergen(a)</span>
       </button>
+      <button class="icon-btn" data-action="share" data-id="${p.id}" title="Podijeli">📤</button>
       <button class="icon-btn" data-action="edit" data-id="${p.id}" title="Uredi">✏️</button>
       <button class="icon-btn" data-action="delete" data-id="${p.id}" title="Obriši">🗑️</button>
     </div>
   `).join('');
+}
+
+function buildProfileShareUrl(profile) {
+  const payload = encodeURIComponent(JSON.stringify({ name: profile.name, allergenIds: profile.allergenIds }));
+  const base = location.origin + location.pathname;
+  return `${base}?profile=${payload}`;
+}
+
+async function shareProfile(profile) {
+  const url = buildProfileShareUrl(profile);
+  const text = `Alergeni za ${profile.name} — otvori link, app se sama podesi.`;
+
+  if (navigator.share) {
+    try {
+      await navigator.share({ title: 'imamAlergiju profil', text, url });
+    } catch (e) {
+      // korisnik otkazao dijeljenje — ništa ne radimo
+    }
+    return;
+  }
+
+  try {
+    await navigator.clipboard.writeText(url);
+    alert('Link je kopiran u clipboard. Pošalji ga kome želiš.');
+  } catch (e) {
+    prompt('Kopiraj ovaj link ručno:', url);
+  }
 }
 
 function renderProfileAllergenCheckboxes(selectedIds = []) {
@@ -161,6 +189,8 @@ profileList.addEventListener('click', (e) => {
     setActiveProfileId(id);
     renderProfileList();
     renderProfileSummary();
+  } else if (action === 'share') {
+    if (profile) shareProfile(profile);
   } else if (action === 'edit') {
     if (profile) openProfileForm(profile);
   } else if (action === 'delete') {
@@ -462,10 +492,43 @@ manualCode.addEventListener('keydown', (e) => {
   if (e.key === 'Enter') btnManual.click();
 });
 
+function importSharedProfileFromUrl() {
+  const params = new URLSearchParams(location.search);
+  const raw = params.get('profile');
+  if (!raw) return false;
+
+  // Očisti URL odmah da refresh ne ponavlja uvoz.
+  const cleanUrl = location.origin + location.pathname;
+  history.replaceState({}, '', cleanUrl);
+
+  let data;
+  try {
+    data = JSON.parse(raw);
+  } catch (e) {
+    return false;
+  }
+  if (!data || typeof data.name !== 'string' || !Array.isArray(data.allergenIds)) return false;
+
+  const validIds = data.allergenIds.filter((id) => ALLERGENS.some((a) => a.id === id));
+  const labels = ALLERGENS.filter((a) => validIds.includes(a.id)).map((a) => a.label).join(', ') || 'nema izabranih alergena';
+
+  const wantsImport = confirm(`Neko ti je poslao profil "${data.name}" (${labels}).\n\nDodati ovaj profil i odmah ga postaviti kao aktivan?`);
+  if (!wantsImport) return false;
+
+  const profile = { id: createProfileId(), name: data.name.slice(0, 60), allergenIds: validIds };
+  upsertProfile(profile);
+  setActiveProfileId(profile.id);
+  return true;
+}
+
+const importedSharedProfile = importSharedProfileFromUrl();
+
 renderProfileSummary();
 renderProfileList();
 renderHistoryList();
-if (!getActiveProfile()) {
+if (importedSharedProfile) {
+  switchTab('tab-home');
+} else if (!getActiveProfile()) {
   switchTab('tab-profile');
   openProfileForm(null);
 }
