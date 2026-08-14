@@ -36,16 +36,32 @@ header {
 
 .lang-switch {
   position: absolute;
-  top: 16px;
-  right: 16px;
+  top: 14px;
+  right: 14px;
+  display: flex;
+  gap: 4px;
   background: var(--card);
-  color: var(--accent-dark);
-  border: 2px solid var(--accent);
   border-radius: 999px;
-  padding: 4px 12px;
-  font-size: 0.8rem;
-  font-weight: 700;
+  padding: 4px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.lang-flag {
+  background: none;
+  border: 2px solid transparent;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  font-size: 1rem;
+  line-height: 1;
+  padding: 0;
   cursor: pointer;
+  opacity: 0.5;
+}
+
+.lang-flag.active {
+  border-color: var(--accent);
+  opacity: 1;
 }
 
 header h1 {

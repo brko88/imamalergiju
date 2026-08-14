@@ -2,33 +2,37 @@
 // OFF već normalizuje sastojke (na bilo kom jeziku) u ove tagove, pa ne moramo
 // sami parsirati tekst deklaracije — samo poredimo tagove.
 const ALLERGENS = [
-  { id: 'gluten', label: 'Gluten (žitarice)', labelEn: 'Gluten (cereals)', tags: ['en:gluten'] },
-  { id: 'crustaceans', label: 'Rakovi', labelEn: 'Crustaceans', tags: ['en:crustaceans'] },
-  { id: 'eggs', label: 'Jaja', labelEn: 'Eggs', tags: ['en:eggs'] },
-  { id: 'fish', label: 'Riba', labelEn: 'Fish', tags: ['en:fish'] },
-  { id: 'peanuts', label: 'Kikiriki', labelEn: 'Peanuts', tags: ['en:peanuts'] },
-  { id: 'soybeans', label: 'Soja', labelEn: 'Soybeans', tags: ['en:soybeans'] },
-  { id: 'milk', label: 'Mlijeko', labelEn: 'Milk', tags: ['en:milk'] },
+  { id: 'gluten', label: 'Gluten (žitarice)', labelEn: 'Gluten (cereals)', labelDe: 'Gluten (Getreide)', tags: ['en:gluten'] },
+  { id: 'crustaceans', label: 'Rakovi', labelEn: 'Crustaceans', labelDe: 'Krebstiere', tags: ['en:crustaceans'] },
+  { id: 'eggs', label: 'Jaja', labelEn: 'Eggs', labelDe: 'Eier', tags: ['en:eggs'] },
+  { id: 'fish', label: 'Riba', labelEn: 'Fish', labelDe: 'Fisch', tags: ['en:fish'] },
+  { id: 'peanuts', label: 'Kikiriki', labelEn: 'Peanuts', labelDe: 'Erdnüsse', tags: ['en:peanuts'] },
+  { id: 'soybeans', label: 'Soja', labelEn: 'Soybeans', labelDe: 'Soja', tags: ['en:soybeans'] },
+  { id: 'milk', label: 'Mlijeko', labelEn: 'Milk', labelDe: 'Milch', tags: ['en:milk'] },
   {
     id: 'nuts',
     label: 'Orašasti plodovi',
     labelEn: 'Tree nuts',
+    labelDe: 'Schalenfrüchte (Nüsse)',
     tags: [
       'en:nuts', 'en:hazelnuts', 'en:almonds', 'en:walnuts',
       'en:cashew-nuts', 'en:pecan-nuts', 'en:pistachios',
       'en:brazil-nuts', 'en:macadamia-nuts', 'en:queensland-nuts'
     ]
   },
-  { id: 'celery', label: 'Celer', labelEn: 'Celery', tags: ['en:celery'] },
-  { id: 'mustard', label: 'Gorušica', labelEn: 'Mustard', tags: ['en:mustard'] },
-  { id: 'sesame-seeds', label: 'Susam', labelEn: 'Sesame', tags: ['en:sesame-seeds'] },
-  { id: 'sulphur-dioxide-and-sulphites', label: 'Sumpor-dioksid i sulfiti', labelEn: 'Sulphur dioxide and sulphites', tags: ['en:sulphur-dioxide-and-sulphites'] },
-  { id: 'lupin', label: 'Lupina', labelEn: 'Lupin', tags: ['en:lupin'] },
-  { id: 'molluscs', label: 'Mekušci', labelEn: 'Molluscs', tags: ['en:molluscs'] }
+  { id: 'celery', label: 'Celer', labelEn: 'Celery', labelDe: 'Sellerie', tags: ['en:celery'] },
+  { id: 'mustard', label: 'Gorušica', labelEn: 'Mustard', labelDe: 'Senf', tags: ['en:mustard'] },
+  { id: 'sesame-seeds', label: 'Susam', labelEn: 'Sesame', labelDe: 'Sesam', tags: ['en:sesame-seeds'] },
+  { id: 'sulphur-dioxide-and-sulphites', label: 'Sumpor-dioksid i sulfiti', labelEn: 'Sulphur dioxide and sulphites', labelDe: 'Schwefeldioxid und Sulfite', tags: ['en:sulphur-dioxide-and-sulphites'] },
+  { id: 'lupin', label: 'Lupina', labelEn: 'Lupin', labelDe: 'Lupinen', tags: ['en:lupin'] },
+  { id: 'molluscs', label: 'Mekušci', labelEn: 'Molluscs', labelDe: 'Weichtiere', tags: ['en:molluscs'] }
 ];
 
 function allergenLabel(allergen) {
-  return getLang() === 'en' ? allergen.labelEn : allergen.label;
+  const lang = getLang();
+  if (lang === 'en') return allergen.labelEn;
+  if (lang === 'de') return allergen.labelDe;
+  return allergen.label;
 }
 
 // selectedIds: niz id-jeva iz ALLERGENS koje trenutno provjeravamo.

@@ -45,7 +45,7 @@ const btnSubmitContribution = document.getElementById('btn-submit-contribution')
 const btnCancelContribution = document.getElementById('btn-cancel-contribution');
 const contributeFallbackLink = document.getElementById('contribute-fallback-link');
 const contributeModeLabel = document.getElementById('contribute-mode-label');
-const btnLangSwitch = document.getElementById('btn-lang-switch');
+const langFlagButtons = document.querySelectorAll('.lang-flag');
 
 const OFF_USERNAME_KEY = 'imamalergiju:offUsername';
 const OFF_PASSWORD_KEY = 'imamalergiju:offPassword';
@@ -108,13 +108,17 @@ function refreshDynamicText() {
 }
 
 function updateLangSwitchLabel() {
-  btnLangSwitch.textContent = getLang() === 'en' ? 'BS' : 'EN';
+  langFlagButtons.forEach((btn) => {
+    btn.classList.toggle('active', btn.dataset.lang === getLang());
+  });
 }
 
-btnLangSwitch.addEventListener('click', () => {
-  setLang(getLang() === 'en' ? 'bs' : 'en');
-  updateLangSwitchLabel();
-  refreshDynamicText();
+langFlagButtons.forEach((btn) => {
+  btn.addEventListener('click', () => {
+    setLang(btn.dataset.lang);
+    updateLangSwitchLabel();
+    refreshDynamicText();
+  });
 });
 
 // --- Profili ---
