@@ -348,11 +348,18 @@ btnSubmitContribution.addEventListener('click', async () => {
   const password = offPasswordInput.value;
   const containsIds = Array.from(contributeAllergensContains.querySelectorAll('input:checked')).map((el) => el.value);
   const tracesIds = Array.from(contributeAllergensTraces.querySelectorAll('input:checked')).map((el) => el.value);
+  const frontFile = contributePhotoFront.files[0];
+  const ingredientsFile = contributePhotoIngredients.files[0];
 
   if (!name) {
     contributeStatus.textContent = t('contribute.errNoName');
     contributeStatus.classList.add('error');
     contributeName.focus();
+    return;
+  }
+  if (!frontFile || !ingredientsFile) {
+    contributeStatus.textContent = t('contribute.errNoPhotos');
+    contributeStatus.classList.add('error');
     return;
   }
   if (!userId || !password) {
@@ -370,8 +377,6 @@ btnSubmitContribution.addEventListener('click', async () => {
     localStorage.setItem(OFF_USERNAME_KEY, userId);
     localStorage.setItem(OFF_PASSWORD_KEY, password);
 
-    const frontFile = contributePhotoFront.files[0];
-    const ingredientsFile = contributePhotoIngredients.files[0];
     if (frontFile) {
       contributeStatus.textContent = t('contribute.sendingFrontPhoto');
       await uploadProductImage({ code, imagefield: 'front', file: frontFile, userId, password });
