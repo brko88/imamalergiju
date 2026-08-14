@@ -74,6 +74,7 @@ function isValidGtinChecksum(code) {
 let editingProfileId = null;
 let lastScannedCode = null;
 let lastScannedProduct = null;
+let isEditingExistingProduct = false;
 
 function escapeHtml(str) {
   const div = document.createElement('div');
@@ -322,6 +323,7 @@ function renderContributeAllergenCheckboxes(container, selectedIds = []) {
 }
 
 function openContributeForm(code, prefill) {
+  isEditingExistingProduct = !!prefill;
   contributeBarcode.textContent = code;
   contributeName.value = prefill ? (prefill.name || '') : '';
   renderContributeAllergenCheckboxes(contributeAllergensContains, prefill ? prefill.containsIds : []);
@@ -384,7 +386,7 @@ btnSubmitContribution.addEventListener('click', async () => {
     contributeName.focus();
     return;
   }
-  if (!frontFile || !ingredientsFile) {
+  if (!isEditingExistingProduct && (!frontFile || !ingredientsFile)) {
     contributeStatus.textContent = t('contribute.errNoPhotos');
     contributeStatus.classList.add('error');
     return;
