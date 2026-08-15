@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://imamalergiju.app/sitemap.xml
+Sitemap: https://imamalergiju.app/blog/dist/sitemap.xml
