@@ -54,6 +54,15 @@ header.site p {
   font-weight: 600;
 }
 
+.app-link {
+  display: inline-block;
+  margin-bottom: 4px;
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
 .post-card {
   display: block;
   background: var(--card);
