@@ -17,8 +17,8 @@ const DIST_DIR = path.join(ROOT, 'dist');
 
 // JEDINO mjesto koje treba promijeniti kad blog dobije pravi domen —
 // sve OG tagove, canonical linkove i sitemap.xml koristi ovu vrijednost.
-const SITE_URL = 'https://brko88.github.io/imamalergiju/blog/dist/';
-const APP_URL = 'https://brko88.github.io/imamalergiju/';
+const SITE_URL = 'https://imamalergiju.app/blog/dist/';
+const APP_URL = 'https://imamalergiju.app/';
 const SITE_DESCRIPTION = 'Blog o razvoju aplikacije imamAlergiju, alergijama, i svakodnevnom životu s njima — savjeti, iskustva i novosti.';
 
 function readTemplate(name) {
