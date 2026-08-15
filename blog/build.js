@@ -74,6 +74,14 @@ function markdownToHtml(md) {
         return `<img src="${escapeHtml(imageMatch[2])}" alt="${escapeHtml(imageMatch[1])}" />`;
       }
 
+      // Istaknut okvir (callout), npr. za donaciju/napomenu: svaka linija bloka počinje sa "> ".
+      const isCallout = trimmed.split('\n').every((line) => line.trim().startsWith('>'));
+      if (isCallout) {
+        const content = trimmed.split('\n').map((line) => line.replace(/^>\s?/, '')).join('\n');
+        const inner = content.split('\n').map(inline).join('<br>');
+        return `<blockquote>${inner}</blockquote>`;
+      }
+
       const withBreaks = trimmed.split('\n').map(inline).join('<br>');
       return `<p>${withBreaks}</p>`;
     })

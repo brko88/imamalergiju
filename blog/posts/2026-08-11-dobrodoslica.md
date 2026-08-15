@@ -3,22 +3,12 @@ title: Dobrodošli na imamAlergiju blog
 date: 2026-08-11
 ---
 
-Ovo je prva objava na blogu. Ovdje ću pisati o razvoju aplikacije **imamAlergiju**, alergijama, i svemu što je korisno roditeljima koji se svakodnevno bore sa čitanjem deklaracija.
+Dobrodošli! Ovdje ćemo pisati o razvoju aplikacije **imamAlergiju**, o alergijama, i o iskustvima roditelja i djece koji se s njima nose svaki dan — o svemu što nam pomaže da prodavnicu pretvorimo iz stresnog mjesta u nešto malo jednostavnije.
 
-## Kako pisati objavu
+imamAlergiju je nastala iz stvarne, svakodnevne potrebe: brzo saznati da li proizvod sadrži alergen na koji je neko u porodici osjetljiv, bez listanja sitnih slova po deklaraciji usred žurbe u prodavnici. Skeniraš barkod, dobiješ jasan odgovor — zeleno, narandžasto ili crveno.
 
-Napravi novi `.md` fajl u `posts/` folderu, po uzoru na ovaj. Na vrhu ide:
+Aplikacija koristi OpenFoodFacts, veliku javnu bazu proizvoda koju puni zajednica ljudi iz cijelog svijeta. To znači da raste i popravlja se svaki dan, uz pomoć svih nas koji je koristimo.
 
-```
----
-title: Naslov tvoje objave
-date: 2026-08-11
-image: images/naslovna.jpg
----
-```
+> 💛 **imamAlergiju je i ostaje potpuno besplatna.** Bez pretplata, bez skrivenih troškova, bez reklama. Ako ti je pomogla ili ti je jednostavno korisna, razmisli o maloj donaciji za dalji razvoj i održavanje — svaka pomoć znači. [Podrži aplikaciju ↗](https://ko-fi.com/imamAlergiju)
 
-`image` red je opcion — ako ga izostaviš, objava neće imati naslovnu sliku.
-
-Ispod toga pišeš tekst normalno. Podržano je: **podebljano**, *kurziv*, [linkovi](https://openfoodfacts.org), podnaslovi sa `##`, i slike sa `![opis slike](images/naziv.jpg)` (sliku prije toga samo sačuvaj u `images/` folder).
-
-Kad završiš, pokreni `node build.js` u `blog/` folderu — sve se generiše u `dist/`.
+Hvala što si tu. Vidimo se u sljedećoj objavi!
