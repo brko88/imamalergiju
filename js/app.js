@@ -230,6 +230,29 @@ async function shareProfile(profile) {
   }
 }
 
+const btnShareApp = document.getElementById('btn-share-app');
+
+btnShareApp.addEventListener('click', async () => {
+  const url = location.origin + location.pathname;
+  const text = t('share.appText');
+
+  if (navigator.share) {
+    try {
+      await navigator.share({ title: 'imamAlergiju', text, url });
+    } catch (e) {
+      // korisnik otkazao dijeljenje
+    }
+    return;
+  }
+
+  try {
+    await navigator.clipboard.writeText(url);
+    alert(t('share.appCopied'));
+  } catch (e) {
+    prompt(t('share.copyManually'), url);
+  }
+});
+
 function renderProfileAllergenCheckboxes(selectedIds = []) {
   profileAllergenList.innerHTML = ALLERGENS.map((a) => `
     <label class="allergen-item">
