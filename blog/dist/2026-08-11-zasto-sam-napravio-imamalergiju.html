@@ -51,7 +51,28 @@
 <p>Ako primijetite da je neki proizvod pogrešno označen — da kaže da je siguran a vi znate da nije, ili obrnuto — aplikacija vam omogućava da to <strong>odmah ispravite direktno unutar nje</strong>, u par klikova. Time pomažete i sebi i svakom sledećem roditelju koji skenira isti proizvod. Ova baza je onoliko dobra koliko mi svi zajedno uložimo u nju.</p>
 <p>Dvije godine sa lješnjakom su me naučile mnogo toga — strpljenju, opreznosti, i tome da male stvari (kao dvije sekunde skeniranja u prodavnici) mogu roditeljima uštedjeti ogromnu količinu stresa. Nadam se da će vam imamAlergiju značiti isto što i nama.</p>
       </div>
+      <button class="share-btn" id="share-post-btn">📤 Podijeli objavu</button>
     </article>
   </div>
+
+  <script>
+    document.getElementById('share-post-btn').addEventListener('click', async () => {
+      const shareData = {
+        title: document.title,
+        text: "Dvije godine s lješnjakom — zašto sam napravio imamAlergiju",
+        url: window.location.href
+      };
+      if (navigator.share) {
+        try { await navigator.share(shareData); } catch (e) {}
+        return;
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        alert('Link je kopiran u clipboard. Nalijepi ga gdje želiš.');
+      } catch (e) {
+        prompt('Kopiraj ovaj link ručno:', window.location.href);
+      }
+    });
+  </script>
 </body>
 </html>
