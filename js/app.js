@@ -1,5 +1,6 @@
 const introOverlay = document.getElementById('intro-overlay');
 const introClose = document.getElementById('intro-close');
+const introInfoBtn = document.getElementById('intro-info-btn');
 const INTRO_SEEN_KEY = 'imamalergiju:introSeen';
 let introTimeoutId = null;
 
@@ -12,12 +13,18 @@ function dismissIntro() {
   }
 }
 
+function showIntro() {
+  introOverlay.classList.add('active');
+  if (introTimeoutId) clearTimeout(introTimeoutId);
+  introTimeoutId = setTimeout(dismissIntro, 15000);
+}
+
 introClose.addEventListener('click', dismissIntro);
+introInfoBtn.addEventListener('click', showIntro);
 
 function maybeShowIntro() {
   if (localStorage.getItem(INTRO_SEEN_KEY)) return;
-  introOverlay.classList.add('active');
-  introTimeoutId = setTimeout(dismissIntro, 15000);
+  showIntro();
 }
 
 const startView = document.getElementById('start-view');
