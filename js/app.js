@@ -1,3 +1,25 @@
+const introOverlay = document.getElementById('intro-overlay');
+const introClose = document.getElementById('intro-close');
+const INTRO_SEEN_KEY = 'imamalergiju:introSeen';
+let introTimeoutId = null;
+
+function dismissIntro() {
+  introOverlay.classList.remove('active');
+  localStorage.setItem(INTRO_SEEN_KEY, '1');
+  if (introTimeoutId) {
+    clearTimeout(introTimeoutId);
+    introTimeoutId = null;
+  }
+}
+
+introClose.addEventListener('click', dismissIntro);
+
+function maybeShowIntro() {
+  if (localStorage.getItem(INTRO_SEEN_KEY)) return;
+  introOverlay.classList.add('active');
+  introTimeoutId = setTimeout(dismissIntro, 15000);
+}
+
 const startView = document.getElementById('start-view');
 const scannerView = document.getElementById('scanner-view');
 const video = document.getElementById('video');
@@ -615,6 +637,7 @@ function importSharedProfileFromUrl() {
 
 applyStaticTranslations();
 updateLangSwitchLabel();
+maybeShowIntro();
 
 const importedSharedProfile = importSharedProfileFromUrl();
 

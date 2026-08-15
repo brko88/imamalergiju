@@ -35,6 +35,11 @@ function localeForLang(lang) {
 
 const STRINGS = {
   bs: {
+    'common.close': 'Zatvori',
+    'intro.title': '👋 Prije nego počneš',
+    'intro.bodyP1': 'Bazu proizvoda koju koristimo (OpenFoodFacts) puni zajednica ljudi iz cijelog svijeta, uključujući i ovu aplikaciju — nije savršena, i mogu se desiti greške ili nepotpuni podaci.',
+    'intro.bodyP2': 'Čak i kad aplikacija pokaže 🟢 zeleno, to znači samo da nismo našli alergen u dostupnim podacima — ne garantuje da je proizvod 100% siguran. Uvijek provjeri deklaraciju na proizvodu, pogotovo kod ozbiljnih alergija.',
+    'intro.bodyP3': 'Ako primijetiš da je neki proizvod pogrešno označen, možeš ga ispraviti direktno u aplikaciji — hvala što pomažeš svima!',
     'header.subtitle': 'Skeniraj proizvod, saznaj odmah.',
     'profile.none': '— nema profila —',
     'home.scanBtn': '📷 Skeniraj barkod',
@@ -114,6 +119,11 @@ const STRINGS = {
     'off.rejected': 'OpenFoodFacts je odbio podatke (provjeri korisničko ime/lozinku).'
   },
   en: {
+    'common.close': 'Close',
+    'intro.title': '👋 Before you start',
+    'intro.bodyP1': "The product database we use (OpenFoodFacts) is filled in by a community of people worldwide, including through this app — it isn't perfect, and errors or incomplete data can happen.",
+    'intro.bodyP2': "Even when the app shows 🟢 green, that only means we didn't find the allergen in the available data — it doesn't guarantee the product is 100% safe. Always check the label on the product, especially for serious allergies.",
+    'intro.bodyP3': 'If you notice a product is labeled incorrectly, you can fix it directly in the app — thanks for helping everyone!',
     'header.subtitle': 'Scan a product, know right away.',
     'profile.none': '— no profile —',
     'home.scanBtn': '📷 Scan barcode',
@@ -193,6 +203,11 @@ const STRINGS = {
     'off.rejected': 'OpenFoodFacts rejected the data (check username/password).'
   },
   de: {
+    'common.close': 'Schließen',
+    'intro.title': '👋 Bevor du startest',
+    'intro.bodyP1': 'Die Produktdatenbank, die wir nutzen (OpenFoodFacts), wird von einer weltweiten Community gepflegt, auch über diese App — sie ist nicht perfekt, und Fehler oder unvollständige Daten können vorkommen.',
+    'intro.bodyP2': 'Auch wenn die App 🟢 grün anzeigt, bedeutet das nur, dass wir das Allergen in den verfügbaren Daten nicht gefunden haben — es garantiert nicht, dass das Produkt zu 100% sicher ist. Prüfe immer das Etikett auf dem Produkt, besonders bei ernsten Allergien.',
+    'intro.bodyP3': 'Wenn dir auffällt, dass ein Produkt falsch gekennzeichnet ist, kannst du es direkt in der App korrigieren — danke, dass du allen hilfst!',
     'header.subtitle': 'Scanne ein Produkt, wisse sofort Bescheid.',
     'profile.none': '— kein Profil —',
     'home.scanBtn': '📷 Barcode scannen',
