@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://brko88.github.io/imamalergiju/blog/dist/sitemap.xml

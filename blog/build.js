@@ -15,6 +15,12 @@ const POSTS_DIR = path.join(ROOT, 'posts');
 const IMAGES_DIR = path.join(ROOT, 'images');
 const DIST_DIR = path.join(ROOT, 'dist');
 
+// JEDINO mjesto koje treba promijeniti kad blog dobije pravi domen —
+// sve OG tagove, canonical linkove i sitemap.xml koristi ovu vrijednost.
+const SITE_URL = 'https://brko88.github.io/imamalergiju/blog/dist/';
+const APP_URL = 'https://brko88.github.io/imamalergiju/';
+const SITE_DESCRIPTION = 'Blog o razvoju aplikacije imamAlergiju, alergijama, i svakodnevnom životu s njima — savjeti, iskustva i novosti.';
+
 function readTemplate(name) {
   return fs.readFileSync(path.join(ROOT, name), 'utf8');
 }
@@ -153,17 +159,35 @@ function build() {
       dateFormatted: date ? formatDate(date) : '',
       coverImage: meta.image || '',
       contentHtml,
-      excerpt: excerptFrom(contentHtml)
+      excerpt: excerptFrom(contentHtml),
+      url: `${SITE_URL}${slug}.html`,
+      imageUrl: meta.image ? `${SITE_URL}${meta.image}` : ''
     };
   });
 
   posts.sort((a, b) => (a.date < b.date ? 1 : -1));
 
   for (const post of posts) {
+    const jsonLd = {
+      '@context': 'https://schema.org',
+      '@type': 'Article',
+      headline: post.title,
+      description: post.excerpt,
+      datePublished: post.date || undefined,
+      url: post.url,
+      image: post.imageUrl || undefined,
+      publisher: { '@type': 'Organization', name: 'imamAlergiju' }
+    };
+
     const html = postTemplate
       .replaceAll('{{TITLE}}', escapeHtml(post.title))
       .replaceAll('{{DATE}}', escapeHtml(post.dateFormatted))
       .replaceAll('{{EXCERPT}}', escapeHtml(post.excerpt))
+      .replaceAll('{{POST_URL}}', post.url)
+      .replaceAll('{{OG_IMAGE_TAG}}', post.imageUrl
+        ? `<meta property="og:image" content="${post.imageUrl}" />\n<meta name="twitter:image" content="${post.imageUrl}" />`
+        : '')
+      .replaceAll('{{JSON_LD}}', JSON.stringify(jsonLd))
       .replace('{{COVER_IMAGE_HTML}}', post.coverImage
         ? `<img class="cover" src="${escapeHtml(post.coverImage)}" alt="${escapeHtml(post.title)}" />`
         : '')
@@ -186,9 +210,23 @@ function build() {
         .join('\n')
     : '<p class="empty-hint">Još nema objava.</p>';
 
-  const indexHtml = indexTemplate.replace('{{POSTS_LIST}}', postsListHtml);
+  const indexHtml = indexTemplate
+    .replace('{{POSTS_LIST}}', postsListHtml)
+    .replaceAll('{{SITE_URL}}', SITE_URL)
+    .replaceAll('{{SITE_DESCRIPTION}}', escapeHtml(SITE_DESCRIPTION));
   fs.writeFileSync(path.join(DIST_DIR, 'index.html'), indexHtml, 'utf8');
   console.log(`✓ index.html (${posts.length} objava)`);
+
+  const sitemapUrls = [SITE_URL, ...posts.map((p) => p.url)]
+    .map((url) => `  <url><loc>${url}</loc></url>`)
+    .join('\n');
+  const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${sitemapUrls}\n</urlset>\n`;
+  fs.writeFileSync(path.join(DIST_DIR, 'sitemap.xml'), sitemap, 'utf8');
+
+  const robots = `User-agent: *\nAllow: /\n\nSitemap: ${SITE_URL}sitemap.xml\n`;
+  fs.writeFileSync(path.join(DIST_DIR, 'robots.txt'), robots, 'utf8');
+
+  console.log('✓ sitemap.xml, robots.txt');
 }
 
 build();
