@@ -1,4 +1,4 @@
-const CACHE_NAME = 'imamalergiju-v32';
+const CACHE_NAME = 'imamalergiju-v33';
 const APP_SHELL = [
   './',
   './index.html',
@@ -42,16 +42,18 @@ self.addEventListener('fetch', (event) => {
   const url = new URL(event.request.url);
   if (url.origin !== self.location.origin) return;
 
+  // Mreža prvo, keš samo kao rezerva ako nema interneta. Ovo garantuje svjež
+  // sadržaj (app + blog) kad god ima veze, bez oslanjanja na to da korisnik
+  // čeka da se service worker sam ažurira prije nego vidi izmjene.
   event.respondWith(
-    caches.match(event.request).then((cached) => {
-      if (cached) return cached;
-      return fetch(event.request).then((response) => {
+    fetch(event.request)
+      .then((response) => {
         if (response.ok) {
           const clone = response.clone();
           caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone));
         }
         return response;
-      });
-    })
+      })
+      .catch(() => caches.match(event.request))
   );
 });

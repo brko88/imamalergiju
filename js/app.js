@@ -663,7 +663,18 @@ if ('serviceWorker' in navigator) {
   // fajl pri provjeri novih verzija — bez ovoga, provjera za update može
   // vratiti stari keširani sw.js i nikad ne primijetiti da postoji novi.
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('sw.js', { updateViaCache: 'none' }).catch(() => {});
+    navigator.serviceWorker.register('sw.js', { updateViaCache: 'none' }).then((registration) => {
+      // Ne oslanjamo se samo na to da browser sam odluči kad će provjeriti —
+      // eksplicitno tražimo provjeru odmah, i svaki put kad se app vrati u
+      // prvi plan (otvori se ikonica, prebaci se nazad iz drugog app-a...).
+      // Ovo je ono što sprječava da korisnik ikad mora ručno čistiti keš.
+      registration.update();
+      document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible') {
+          registration.update();
+        }
+      });
+    }).catch(() => {});
   });
 
   // Kad novi service worker preuzme kontrolu (nova verzija je instalirana i
