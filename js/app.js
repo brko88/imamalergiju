@@ -82,6 +82,11 @@ const langDropdown = document.getElementById('lang-dropdown');
 const OFF_USERNAME_KEY = 'imamalergiju:offUsername';
 const OFF_PASSWORD_KEY = 'imamalergiju:offPassword';
 
+const settingsOffUsername = document.getElementById('settings-off-username');
+const settingsOffPassword = document.getElementById('settings-off-password');
+const btnSaveOffAccount = document.getElementById('btn-save-off-account');
+const offAccountStatus = document.getElementById('off-account-status');
+
 let stream = null;
 let detectLoopId = null;
 let pendingCode = null;
@@ -117,8 +122,25 @@ function switchTab(tabId) {
   tabContents.forEach((el) => el.classList.toggle('active', el.id === tabId));
   navItems.forEach((el) => el.classList.toggle('active', el.dataset.tab === tabId));
   if (tabId === 'tab-history') renderHistoryList();
-  if (tabId === 'tab-profile') renderProfileList();
+  if (tabId === 'tab-profile') {
+    renderProfileList();
+    renderOffAccountFields();
+  }
 }
+
+// Isti localStorage ključevi kao forma za doprinos (offUsernameInput/offPasswordInput) —
+// ko god ovdje sačuva nalog, forma za dodavanje/ispravku proizvoda ga već ima popunjenog.
+function renderOffAccountFields() {
+  settingsOffUsername.value = localStorage.getItem(OFF_USERNAME_KEY) || '';
+  settingsOffPassword.value = localStorage.getItem(OFF_PASSWORD_KEY) || '';
+  offAccountStatus.textContent = '';
+}
+
+btnSaveOffAccount.addEventListener('click', () => {
+  localStorage.setItem(OFF_USERNAME_KEY, settingsOffUsername.value.trim());
+  localStorage.setItem(OFF_PASSWORD_KEY, settingsOffPassword.value);
+  offAccountStatus.textContent = t('offAccount.saved');
+});
 
 navItems.forEach((el) => {
   el.addEventListener('click', () => switchTab(el.dataset.tab));
