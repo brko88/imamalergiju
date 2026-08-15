@@ -124,7 +124,9 @@ const STRINGS = {
     'off.rejected': 'OpenFoodFacts je odbio podatke (provjeri korisničko ime/lozinku).',
     'offAccount.blurb': '🌍 Opciono: sačuvaj OpenFoodFacts nalog da odmah možeš ispraviti/dodati proizvod kad primijetiš grešku — baza je bolja što više nas pomaže. Hvala!',
     'offAccount.saved': '✅ Sačuvano. Hvala!',
-    'offAccount.createAccountLink': '<a href="https://world.openfoodfacts.org/cgi/user.pl?type=add&action=display" target="_blank" rel="noopener">Nemaš nalog? Napravi ga ovdje ↗</a>'
+    'offAccount.createAccountLink': '<a href="https://world.openfoodfacts.org/cgi/user.pl?type=add&action=display" target="_blank" rel="noopener">Nemaš nalog? Napravi ga ovdje ↗</a>',
+    'offAccount.summaryEmpty': '🌍 OpenFoodFacts nalog (opciono)',
+    'offAccount.summarySaved': '🌍 OpenFoodFacts: {0} ✓'
   },
   en: {
     'common.close': 'Close',
@@ -216,7 +218,9 @@ const STRINGS = {
     'off.rejected': 'OpenFoodFacts rejected the data (check username/password).',
     'offAccount.blurb': "🌍 Optional: save your OpenFoodFacts account so you can fix/add a product the moment you spot an error — the database gets better the more of us help. Thanks!",
     'offAccount.saved': '✅ Saved. Thank you!',
-    'offAccount.createAccountLink': '<a href="https://world.openfoodfacts.org/cgi/user.pl?type=add&action=display" target="_blank" rel="noopener">No account? Create one here ↗</a>'
+    'offAccount.createAccountLink': '<a href="https://world.openfoodfacts.org/cgi/user.pl?type=add&action=display" target="_blank" rel="noopener">No account? Create one here ↗</a>',
+    'offAccount.summaryEmpty': '🌍 OpenFoodFacts account (optional)',
+    'offAccount.summarySaved': '🌍 OpenFoodFacts: {0} ✓'
   },
   de: {
     'common.close': 'Schließen',
@@ -308,7 +312,9 @@ const STRINGS = {
     'off.rejected': 'OpenFoodFacts hat die Daten abgelehnt (Benutzername/Passwort prüfen).',
     'offAccount.blurb': '🌍 Optional: Speichere dein OpenFoodFacts-Konto, um Fehler sofort zu korrigieren — die Datenbank wird besser, je mehr von uns mithelfen. Danke!',
     'offAccount.saved': '✅ Gespeichert. Danke!',
-    'offAccount.createAccountLink': '<a href="https://world.openfoodfacts.org/cgi/user.pl?type=add&action=display" target="_blank" rel="noopener">Kein Konto? Hier erstellen ↗</a>'
+    'offAccount.createAccountLink': '<a href="https://world.openfoodfacts.org/cgi/user.pl?type=add&action=display" target="_blank" rel="noopener">Kein Konto? Hier erstellen ↗</a>',
+    'offAccount.summaryEmpty': '🌍 OpenFoodFacts-Konto (optional)',
+    'offAccount.summarySaved': '🌍 OpenFoodFacts: {0} ✓'
   }
 };
 

@@ -137,8 +137,9 @@
         </div>
       </div>
 
-      <div class="card" id="off-account-card">
-        <p class="hint" style="margin-top:0; margin-bottom:10px;" data-i18n="offAccount.blurb">🌍 Opciono: sačuvaj OpenFoodFacts nalog da odmah možeš ispraviti/dodati proizvod kad primijetiš grešku — baza je bolja što više nas pomaže. Hvala!</p>
+      <details class="card" id="off-account-card">
+        <summary id="off-account-summary" data-i18n="offAccount.summaryEmpty">🌍 OpenFoodFacts nalog (opciono)</summary>
+        <p class="hint" style="margin-top:10px; margin-bottom:10px;" data-i18n="offAccount.blurb">🌍 Opciono: sačuvaj OpenFoodFacts nalog da odmah možeš ispraviti/dodati proizvod kad primijetiš grešku — baza je bolja što više nas pomaže. Hvala!</p>
         <input type="text" id="settings-off-username" class="field-input" placeholder="korisničko ime (ne email!)" data-i18n-placeholder="contribute.usernamePlaceholder" style="margin-bottom:8px; margin-top:0;" />
         <input type="password" id="settings-off-password" class="field-input" placeholder="OpenFoodFacts lozinka" data-i18n-placeholder="contribute.passwordPlaceholder" style="margin-top:0; margin-bottom:0;" />
         <div style="display:flex; gap:8px; margin-top:10px;">
@@ -146,7 +147,7 @@
         </div>
         <p class="hint" id="off-account-status" style="margin-top:6px;"></p>
         <p class="hint" style="margin-top:6px;" data-i18n-html="offAccount.createAccountLink"><a href="https://world.openfoodfacts.org/cgi/user.pl?type=add&amp;action=display" target="_blank" rel="noopener">Nemaš nalog? Napravi ga ovdje ↗</a></p>
-      </div>
+      </details>
 
       <footer>
         <a href="https://ko-fi.com/imamAlergiju" class="footer-link" target="_blank" rel="noopener" data-i18n="footer.support">💛 Podrži aplikaciju</a>
