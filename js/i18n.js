@@ -121,7 +121,7 @@ const STRINGS = {
     'off.wrongCreds': 'Pogrešno korisničko ime ili lozinka. Napomena: OFF traži korisničko ime, ne email adresu.',
     'off.badResponse': 'Neispravan odgovor od OpenFoodFacts servera.',
     'off.rejected': 'OpenFoodFacts je odbio podatke (provjeri korisničko ime/lozinku).',
-    'offAccount.blurb': 'Ova aplikacija postoji zahvaljujući OpenFoodFacts bazi koju zajedno puni zajednica korisnika širom svijeta. Nije obavezno, ali ako želiš da nam pomogneš da baza bude tačnija za svu djecu i roditelje koji je koriste — sačuvaj svoj nalog ovdje jednom. Onda ćeš moći odmah ispraviti ili dodati proizvod kad god primijetiš da nešto fali, bez traženja lozinke svaki put. Hvala što se angažuješ!',
+    'offAccount.blurb': '🌍 Opciono: sačuvaj OpenFoodFacts nalog da odmah možeš ispraviti/dodati proizvod kad primijetiš grešku — baza je bolja što više nas pomaže. Hvala!',
     'offAccount.saved': '✅ Sačuvano. Hvala!'
   },
   en: {
@@ -211,7 +211,7 @@ const STRINGS = {
     'off.wrongCreds': 'Wrong username or password. Note: OFF wants your username, not your email address.',
     'off.badResponse': 'Invalid response from the OpenFoodFacts server.',
     'off.rejected': 'OpenFoodFacts rejected the data (check username/password).',
-    'offAccount.blurb': "This app exists thanks to the OpenFoodFacts database, built together by a community of users worldwide. It's not required, but if you'd like to help make the database more accurate for every family who relies on it — save your account here once. Then you can fix or add a product the moment you notice something's missing, without hunting for your password each time. Thanks for pitching in!",
+    'offAccount.blurb': "🌍 Optional: save your OpenFoodFacts account so you can fix/add a product the moment you spot an error — the database gets better the more of us help. Thanks!",
     'offAccount.saved': '✅ Saved. Thank you!'
   },
   de: {
@@ -301,7 +301,7 @@ const STRINGS = {
     'off.wrongCreds': 'Falscher Benutzername oder falsches Passwort. Hinweis: OFF möchte deinen Benutzernamen, nicht deine E-Mail-Adresse.',
     'off.badResponse': 'Ungültige Antwort vom OpenFoodFacts-Server.',
     'off.rejected': 'OpenFoodFacts hat die Daten abgelehnt (Benutzername/Passwort prüfen).',
-    'offAccount.blurb': 'Diese App gibt es dank der OpenFoodFacts-Datenbank, die von einer weltweiten Community gemeinsam gepflegt wird. Es ist nicht erforderlich, aber wenn du helfen möchtest, die Datenbank für alle Familien genauer zu machen, die sich darauf verlassen — speichere dein Konto hier einmal. Dann kannst du ein Produkt sofort korrigieren oder hinzufügen, sobald dir etwas Fehlendes auffällt, ohne jedes Mal dein Passwort suchen zu müssen. Danke für deinen Einsatz!',
+    'offAccount.blurb': '🌍 Optional: Speichere dein OpenFoodFacts-Konto, um Fehler sofort zu korrigieren — die Datenbank wird besser, je mehr von uns mithelfen. Danke!',
     'offAccount.saved': '✅ Gespeichert. Danke!'
   }
 };
