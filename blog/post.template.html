@@ -48,7 +48,7 @@
     document.getElementById('share-post-btn').addEventListener('click', async () => {
       const shareData = {
         title: document.title,
-        text: {{TITLE_JSON}},
+        text: {{EXCERPT_JSON}},
         url: window.location.href
       };
       if (navigator.share) {

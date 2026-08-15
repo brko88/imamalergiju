@@ -182,6 +182,7 @@ function build() {
     const html = postTemplate
       .replaceAll('{{TITLE}}', escapeHtml(post.title))
       .replaceAll('{{TITLE_JSON}}', JSON.stringify(post.title))
+      .replaceAll('{{EXCERPT_JSON}}', JSON.stringify(post.excerpt))
       .replaceAll('{{DATE}}', escapeHtml(post.dateFormatted))
       .replaceAll('{{EXCERPT}}', escapeHtml(post.excerpt))
       .replaceAll('{{POST_URL}}', post.url)
