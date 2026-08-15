@@ -89,6 +89,7 @@ const STRINGS = {
     'footer.support': '💛 Podrži aplikaciju',
     'footer.blog': '📝 Blog',
     'footer.shareApp': '📤 Podijeli app',
+    'footer.contact': '📧 Kontakt',
     'share.appText': 'imamAlergiju — besplatna app koja ti kaže da li proizvod sadrži alergen na koji si osjetljiv/a. Skeniraš barkod, dobiješ odgovor.',
     'share.appCopied': 'Link ka aplikaciji je kopiran u clipboard. Pošalji ga kome želiš.',
     'history.title': 'Skenirani proizvodi:',
@@ -122,7 +123,8 @@ const STRINGS = {
     'off.badResponse': 'Neispravan odgovor od OpenFoodFacts servera.',
     'off.rejected': 'OpenFoodFacts je odbio podatke (provjeri korisničko ime/lozinku).',
     'offAccount.blurb': '🌍 Opciono: sačuvaj OpenFoodFacts nalog da odmah možeš ispraviti/dodati proizvod kad primijetiš grešku — baza je bolja što više nas pomaže. Hvala!',
-    'offAccount.saved': '✅ Sačuvano. Hvala!'
+    'offAccount.saved': '✅ Sačuvano. Hvala!',
+    'offAccount.createAccountLink': '<a href="https://world.openfoodfacts.org/cgi/user.pl?type=add&action=display" target="_blank" rel="noopener">Nemaš nalog? Napravi ga ovdje ↗</a>'
   },
   en: {
     'common.close': 'Close',
@@ -179,6 +181,7 @@ const STRINGS = {
     'footer.support': '💛 Support the app',
     'footer.blog': '📝 Blog',
     'footer.shareApp': '📤 Share the app',
+    'footer.contact': '📧 Contact',
     'share.appText': 'imamAlergiju — a free app that tells you if a product contains an allergen you\'re sensitive to. Scan the barcode, get the answer.',
     'share.appCopied': 'App link copied to clipboard. Send it to whoever you like.',
     'history.title': 'Scanned products:',
@@ -212,7 +215,8 @@ const STRINGS = {
     'off.badResponse': 'Invalid response from the OpenFoodFacts server.',
     'off.rejected': 'OpenFoodFacts rejected the data (check username/password).',
     'offAccount.blurb': "🌍 Optional: save your OpenFoodFacts account so you can fix/add a product the moment you spot an error — the database gets better the more of us help. Thanks!",
-    'offAccount.saved': '✅ Saved. Thank you!'
+    'offAccount.saved': '✅ Saved. Thank you!',
+    'offAccount.createAccountLink': '<a href="https://world.openfoodfacts.org/cgi/user.pl?type=add&action=display" target="_blank" rel="noopener">No account? Create one here ↗</a>'
   },
   de: {
     'common.close': 'Schließen',
@@ -269,6 +273,7 @@ const STRINGS = {
     'footer.support': '💛 App unterstützen',
     'footer.blog': '📝 Blog',
     'footer.shareApp': '📤 App teilen',
+    'footer.contact': '📧 Kontakt',
     'share.appText': 'imamAlergiju — eine kostenlose App, die dir sagt, ob ein Produkt ein Allergen enthält, auf das du empfindlich reagierst. Barcode scannen, Antwort bekommen.',
     'share.appCopied': 'App-Link in die Zwischenablage kopiert. Sende ihn an wen du möchtest.',
     'history.title': 'Gescannte Produkte:',
@@ -302,7 +307,8 @@ const STRINGS = {
     'off.badResponse': 'Ungültige Antwort vom OpenFoodFacts-Server.',
     'off.rejected': 'OpenFoodFacts hat die Daten abgelehnt (Benutzername/Passwort prüfen).',
     'offAccount.blurb': '🌍 Optional: Speichere dein OpenFoodFacts-Konto, um Fehler sofort zu korrigieren — die Datenbank wird besser, je mehr von uns mithelfen. Danke!',
-    'offAccount.saved': '✅ Gespeichert. Danke!'
+    'offAccount.saved': '✅ Gespeichert. Danke!',
+    'offAccount.createAccountLink': '<a href="https://world.openfoodfacts.org/cgi/user.pl?type=add&action=display" target="_blank" rel="noopener">Kein Konto? Hier erstellen ↗</a>'
   }
 };
 

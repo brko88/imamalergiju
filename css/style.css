@@ -513,8 +513,9 @@ video {
 
 footer {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
-  gap: 24px;
+  gap: 16px 24px;
   padding: 18px 16px 28px;
 }
 

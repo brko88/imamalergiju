@@ -63,7 +63,7 @@ Svaki red pokazuje boju semafora, naziv proizvoda, **za koju osobu** je provjere
 
 ## 5. Jezik
 
-Aplikacija govori bosanski, engleski i njemački. Gore desno u ćošku je prekidač jezika.
+Aplikacija ima izbor između tri jezika: bosanski, engleski i njemački. Gore desno u ćošku je prekidač jezika.
 
 ![Padajući meni za izbor jezika](images/vodic-jezik.jpg)
 
