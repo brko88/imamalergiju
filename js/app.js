@@ -659,7 +659,20 @@ if (importedSharedProfile) {
 }
 
 if ('serviceWorker' in navigator) {
+  // updateViaCache:'none' sprječava da browser koristi HTTP keš za sam sw.js
+  // fajl pri provjeri novih verzija — bez ovoga, provjera za update može
+  // vratiti stari keširani sw.js i nikad ne primijetiti da postoji novi.
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('sw.js').catch(() => {});
+    navigator.serviceWorker.register('sw.js', { updateViaCache: 'none' }).catch(() => {});
+  });
+
+  // Kad novi service worker preuzme kontrolu (nova verzija je instalirana i
+  // aktivirana), automatski osvježi stranicu jednom da se povuče svježi sadržaj —
+  // korisnik više nikad ne mora ručno da čisti keš.
+  let refreshingAfterUpdate = false;
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (refreshingAfterUpdate) return;
+    refreshingAfterUpdate = true;
+    location.reload();
   });
 }
