@@ -1,4 +1,4 @@
-const CACHE_NAME = 'imamalergiju-v34';
+const CACHE_NAME = 'imamalergiju-v35';
 const APP_SHELL = [
   './',
   './index.html',

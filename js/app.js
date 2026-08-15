@@ -710,3 +710,27 @@ if ('serviceWorker' in navigator) {
     location.reload();
   });
 }
+
+// "Pritisni nazad ponovo za izlaz" — spriječava slučajan izlazak iz app-a
+// jednim dodirom Android nazad dugmeta kad više nema kuda unutar app-a da se
+// vrati (npr. nakon povratka sa bloga). Prvi "nazad" samo pokaže poruku i
+// vrati istoriju; tek drugi (u sledeće 2 sekunde) stvarno izlazi.
+const exitToast = document.getElementById('exit-toast');
+history.pushState({ appGuard: true }, '');
+let exitArmed = false;
+let exitArmedTimer = null;
+
+window.addEventListener('popstate', () => {
+  if (!exitArmed) {
+    exitArmed = true;
+    history.pushState({ appGuard: true }, '');
+    exitToast.classList.add('visible');
+    exitArmedTimer = setTimeout(() => {
+      exitArmed = false;
+      exitToast.classList.remove('visible');
+    }, 2000);
+  } else {
+    clearTimeout(exitArmedTimer);
+    exitToast.classList.remove('visible');
+  }
+});
