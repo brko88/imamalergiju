@@ -441,6 +441,32 @@ video {
   padding: 10px 0;
 }
 
+.allergen-group {
+  margin-top: 14px;
+  padding: 12px 14px;
+  border-radius: 12px;
+}
+
+.allergen-group-red {
+  background: #fdecec;
+  border-left: 4px solid var(--red);
+}
+
+.allergen-group-red .hint {
+  color: #8a2c2c;
+  font-weight: 700;
+}
+
+.allergen-group-orange {
+  background: #fff3e0;
+  border-left: 4px solid var(--orange);
+}
+
+.allergen-group-orange .hint {
+  color: #6b4a1f;
+  font-weight: 700;
+}
+
 .disclaimer-banner {
   margin-top: 14px;
   padding: 12px 14px;

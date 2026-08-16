@@ -116,11 +116,15 @@
         <label class="hint" for="contribute-name" data-i18n="contribute.nameLabel">Naziv proizvoda</label>
         <input type="text" id="contribute-name" class="field-input" placeholder="npr. Čokolino 250g" data-i18n-placeholder="contribute.namePlaceholder" />
 
-        <p class="hint" style="margin-bottom:6px;" data-i18n="contribute.containsLabel">Proizvod sadrži:</p>
-        <div class="allergen-list" id="contribute-allergens-contains"></div>
+        <div class="allergen-group allergen-group-red">
+          <p class="hint" style="margin-top:0; margin-bottom:8px;" data-i18n="contribute.containsLabel">Proizvod sadrži:</p>
+          <div class="allergen-list" id="contribute-allergens-contains"></div>
+        </div>
 
-        <p class="hint" style="margin-bottom:6px; margin-top:14px;" data-i18n="contribute.tracesLabel">Može sadržati u tragovima:</p>
-        <div class="allergen-list" id="contribute-allergens-traces"></div>
+        <div class="allergen-group allergen-group-orange">
+          <p class="hint" style="margin-top:0; margin-bottom:8px;" data-i18n="contribute.tracesLabel">Može sadržati u tragovima:</p>
+          <div class="allergen-list" id="contribute-allergens-traces"></div>
+        </div>
 
         <label class="hint" for="contribute-photo-front" style="margin-top:14px; display:block;" data-i18n="contribute.photoFrontLabel">Slika ambalaže/barkoda (opciono)</label>
         <input type="file" accept="image/*" capture="environment" id="contribute-photo-front" />
