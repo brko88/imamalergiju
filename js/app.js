@@ -42,6 +42,12 @@ const resultName = document.getElementById('result-name');
 const resultDetail = document.getElementById('result-detail');
 const btnAddProduct = document.getElementById('btn-add-product');
 const btnEditAllergens = document.getElementById('btn-edit-allergens');
+const btnMagnifier = document.getElementById('btn-magnifier');
+const magnifierView = document.getElementById('magnifier-view');
+const magnifierVideo = document.getElementById('magnifier-video');
+const magnifierZoom = document.getElementById('magnifier-zoom');
+const btnMagnifierTorch = document.getElementById('btn-magnifier-torch');
+const btnMagnifierClose = document.getElementById('btn-magnifier-close');
 const disclaimerBanner = document.getElementById('disclaimer-banner');
 
 const activeProfileName = document.getElementById('active-profile-name');
@@ -516,6 +522,7 @@ function setBanner(level, text) {
 
 async function handleBarcode(code) {
   stopScanner();
+  closeMagnifier();
   lastScannedCode = code;
   resultCard.classList.add('active');
   contributeCard.style.display = 'none';
@@ -524,6 +531,7 @@ async function handleBarcode(code) {
   resultDetail.textContent = '';
   btnAddProduct.style.display = 'none';
   btnEditAllergens.style.display = 'none';
+  btnMagnifier.style.display = 'block';
   lastScannedProduct = null;
   disclaimerBanner.classList.remove('emphasized');
   setBanner('unknown', t('scan.checking'));
@@ -576,6 +584,7 @@ async function handleBarcode(code) {
 }
 
 async function startScanner() {
+  closeMagnifier();
   if (!('BarcodeDetector' in window)) {
     scanStatus.textContent = t('scanner.unsupported');
     scanStatus.classList.add('error');
@@ -651,6 +660,61 @@ function stopScanner() {
   scanStatus.classList.remove('error');
   startView.style.display = 'block';
 }
+
+// --- Lupa (uveličaj deklaraciju) ---
+// Samo kamera + digitalni zoom (CSS scale) i po mogućnosti blic — bez OCR/AI
+// čitanja teksta, to je namjerno ostavljeno za budući plaćeni feature iz vodilje.
+
+let magnifierStream = null;
+let magnifierTorchOn = false;
+
+async function openMagnifier() {
+  try {
+    magnifierStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
+  } catch (e) {
+    alert(t('scanner.cameraError'));
+    return;
+  }
+  magnifierVideo.srcObject = magnifierStream;
+  magnifierZoom.value = 1;
+  magnifierVideo.style.transform = 'scale(1)';
+  magnifierTorchOn = false;
+  btnMagnifierTorch.textContent = t('magnifier.torchOn');
+
+  const track = magnifierStream.getVideoTracks()[0];
+  const caps = track.getCapabilities ? track.getCapabilities() : {};
+  btnMagnifierTorch.style.display = caps.torch ? 'block' : 'none';
+
+  magnifierView.style.display = 'block';
+}
+
+function closeMagnifier() {
+  if (magnifierStream) {
+    magnifierStream.getTracks().forEach((track) => track.stop());
+    magnifierStream = null;
+  }
+  magnifierVideo.srcObject = null;
+  magnifierView.style.display = 'none';
+}
+
+btnMagnifier.addEventListener('click', openMagnifier);
+btnMagnifierClose.addEventListener('click', closeMagnifier);
+
+magnifierZoom.addEventListener('input', () => {
+  magnifierVideo.style.transform = `scale(${magnifierZoom.value})`;
+});
+
+btnMagnifierTorch.addEventListener('click', async () => {
+  if (!magnifierStream) return;
+  magnifierTorchOn = !magnifierTorchOn;
+  const track = magnifierStream.getVideoTracks()[0];
+  try {
+    await track.applyConstraints({ advanced: [{ torch: magnifierTorchOn }] });
+    btnMagnifierTorch.textContent = magnifierTorchOn ? t('magnifier.torchOff') : t('magnifier.torchOn');
+  } catch (e) {
+    // uređaj ipak ne podržava blic preko ove API — tiho zanemari
+  }
+});
 
 btnScan.addEventListener('click', startScanner);
 btnCancel.addEventListener('click', stopScanner);

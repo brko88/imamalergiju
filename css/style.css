@@ -289,6 +289,22 @@ video {
   object-fit: cover;
 }
 
+#magnifier-video {
+  transform-origin: center center;
+  transition: transform 0.05s linear;
+}
+
+.magnifier-zoom-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.magnifier-zoom-row input[type="range"] {
+  flex: 1;
+}
+
 .scan-frame {
   position: absolute;
   inset: 18% 10%;
