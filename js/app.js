@@ -11,6 +11,7 @@ function dismissIntro() {
     clearTimeout(introTimeoutId);
     introTimeoutId = null;
   }
+  document.dispatchEvent(new CustomEvent('imamalergiju:introDismissed'));
 }
 
 function showIntro() {

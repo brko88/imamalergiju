@@ -129,7 +129,12 @@ const STRINGS = {
     'offAccount.saved': '✅ Sačuvano. Hvala!',
     'offAccount.createAccountLink': '<a href="https://world.openfoodfacts.org/cgi/user.pl?type=add&action=display" target="_blank" rel="noopener">Nemaš nalog? Napravi ga ovdje ↗</a>',
     'offAccount.summaryEmpty': '🌍 OpenFoodFacts nalog (opciono)',
-    'offAccount.summarySaved': '🌍 OpenFoodFacts: {0} ✓'
+    'offAccount.summarySaved': '🌍 OpenFoodFacts: {0} ✓',
+    'footer.privacy': '🔒 Privatnost',
+    'consent.text': 'Koristimo Google Analytics da vidimo kako se aplikacija koristi i da je poboljšamo. Podaci se ne prodaju niti koriste za oglašavanje.',
+    'consent.privacyLink': 'Politika privatnosti',
+    'consent.accept': 'Prihvati',
+    'consent.reject': 'Odbij'
   },
   en: {
     'common.close': 'Close',
@@ -226,7 +231,12 @@ const STRINGS = {
     'offAccount.saved': '✅ Saved. Thank you!',
     'offAccount.createAccountLink': '<a href="https://world.openfoodfacts.org/cgi/user.pl?type=add&action=display" target="_blank" rel="noopener">No account? Create one here ↗</a>',
     'offAccount.summaryEmpty': '🌍 OpenFoodFacts account (optional)',
-    'offAccount.summarySaved': '🌍 OpenFoodFacts: {0} ✓'
+    'offAccount.summarySaved': '🌍 OpenFoodFacts: {0} ✓',
+    'footer.privacy': '🔒 Privacy',
+    'consent.text': "We use Google Analytics to see how the app is used and to improve it. Data isn't sold or used for advertising.",
+    'consent.privacyLink': 'Privacy policy',
+    'consent.accept': 'Accept',
+    'consent.reject': 'Reject'
   },
   de: {
     'common.close': 'Schließen',
@@ -323,7 +333,12 @@ const STRINGS = {
     'offAccount.saved': '✅ Gespeichert. Danke!',
     'offAccount.createAccountLink': '<a href="https://world.openfoodfacts.org/cgi/user.pl?type=add&action=display" target="_blank" rel="noopener">Kein Konto? Hier erstellen ↗</a>',
     'offAccount.summaryEmpty': '🌍 OpenFoodFacts-Konto (optional)',
-    'offAccount.summarySaved': '🌍 OpenFoodFacts: {0} ✓'
+    'offAccount.summarySaved': '🌍 OpenFoodFacts: {0} ✓',
+    'footer.privacy': '🔒 Datenschutz',
+    'consent.text': 'Wir nutzen Google Analytics, um zu sehen, wie die App genutzt wird, und um sie zu verbessern. Daten werden nicht verkauft oder für Werbung genutzt.',
+    'consent.privacyLink': 'Datenschutzerklärung',
+    'consent.accept': 'Akzeptieren',
+    'consent.reject': 'Ablehnen'
   }
 };
 

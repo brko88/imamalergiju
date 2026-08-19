@@ -25,6 +25,22 @@
   <link rel="apple-touch-icon" href="icons/icon.svg" />
   <link rel="icon" href="icons/icon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="css/style.css" />
+
+  <!-- Google tag (gtag.js) — Consent Mode v2: default denied dok korisnik ne prihvati (GDPR) -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', {
+      'ad_storage': 'denied',
+      'ad_user_data': 'denied',
+      'ad_personalization': 'denied',
+      'analytics_storage': 'denied',
+      'wait_for_update': 500
+    });
+    gtag('js', new Date());
+    gtag('config', 'G-5JF257PZWJ');
+  </script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-5JF257PZWJ"></script>
 </head>
 <body>
   <div class="intro-overlay" id="intro-overlay">
@@ -188,6 +204,7 @@
         <a href="blog/dist/index.html" class="footer-link" data-i18n="footer.blog">📝 Blog</a>
         <button class="footer-link" id="btn-share-app" data-i18n="footer.shareApp">📤 Podijeli app</button>
         <a href="mailto:info@imamalergiju.app" class="footer-link" data-i18n="footer.contact">📧 Kontakt</a>
+        <a href="privacy.html" class="footer-link" data-i18n="footer.privacy">🔒 Privatnost</a>
       </footer>
     </section>
 
@@ -204,6 +221,15 @@
   </main>
 
   <div class="exit-toast" id="exit-toast" data-i18n="app.pressBackAgain">Pritisni nazad ponovo za izlaz</div>
+
+  <div class="consent-banner" id="consent-banner">
+    <p data-i18n="consent.text">Koristimo Google Analytics da vidimo kako se aplikacija koristi i da je poboljšamo. Podaci se ne prodaju niti koriste za oglašavanje.</p>
+    <a href="privacy.html" data-i18n="consent.privacyLink">Politika privatnosti</a>
+    <div class="consent-banner-actions">
+      <button class="btn secondary" id="btn-consent-reject" data-i18n="consent.reject">Odbij</button>
+      <button class="btn" id="btn-consent-accept" data-i18n="consent.accept">Prihvati</button>
+    </div>
+  </div>
 
   <nav class="bottom-nav">
     <button class="nav-item active" data-tab="tab-home">
@@ -224,6 +250,7 @@
   <script src="js/profiles.js"></script>
   <script src="js/history.js"></script>
   <script src="js/app.js"></script>
+  <script src="js/consent.js"></script>
 
   <!-- Cloudflare Web Analytics -->
   <script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "ced8e89f237f473d9543fc79223621dd"}'></script>
