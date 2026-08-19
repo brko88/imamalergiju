@@ -1,4 +1,8 @@
-const CACHE_NAME = 'imamalergiju-v44';
+// VAŽNO: povećaj ovaj broj SVAKI PUT kad se pushuje bilo kakva izmjena sajta/app-a.
+// Ako se ovaj fajl ne promijeni, browser vidi identičan sw.js i nikad ne primijeti
+// da postoji nova verzija — auto-refresh ispod se onda nikad ne aktivira, i
+// korisnik ostaje zaglavljen na staroj verziji dok ručno ne očisti keš.
+const CACHE_NAME = 'imamalergiju-v45';
 const APP_SHELL = [
   './',
   './index.html',
@@ -10,7 +14,9 @@ const APP_SHELL = [
   './js/offwrite.js',
   './js/profiles.js',
   './js/history.js',
+  './js/qrcode.js',
   './js/app.js',
+  './js/consent.js',
   './icons/icon.svg'
 ];
 
@@ -42,11 +48,12 @@ self.addEventListener('fetch', (event) => {
   const url = new URL(event.request.url);
   if (url.origin !== self.location.origin) return;
 
-  // Mreža prvo, keš samo kao rezerva ako nema interneta. Ovo garantuje svjež
-  // sadržaj (app + blog) kad god ima veze, bez oslanjanja na to da korisnik
-  // čeka da se service worker sam ažurira prije nego vidi izmjene.
+  // Mreža prvo, keš samo kao rezerva ako nema interneta. cache:'no-store' je
+  // bitan — bez njega bi fetch() smio vratiti GitHub Pages-ov keširan odgovor
+  // (Cache-Control: max-age=600) umjesto da stvarno pita mrežu, pa bi "mreža
+  // prvo" u praksi značilo "keš prvo" do 10 minuta poslije svakog pusha.
   event.respondWith(
-    fetch(event.request)
+    fetch(event.request, { cache: 'no-store' })
       .then((response) => {
         if (response.ok) {
           const clone = response.clone();
