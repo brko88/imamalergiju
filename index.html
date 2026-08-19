@@ -22,8 +22,11 @@
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"imamAlergiju","description":"Skeniraj barkod i odmah saznaj ima li proizvod alergen koji te se tiče.","url":"https://imamalergiju.app/","applicationCategory":"HealthApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"}}</script>
 
   <link rel="manifest" href="manifest.json" />
-  <link rel="apple-touch-icon" href="icons/icon.svg" />
+  <link rel="icon" href="favicon.ico" sizes="any" />
   <link rel="icon" href="icons/icon.svg" type="image/svg+xml" />
+  <link rel="icon" type="image/png" sizes="32x32" href="icons/icon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="icons/icon-16.png" />
+  <link rel="apple-touch-icon" href="icons/icon-180.png" />
   <link rel="stylesheet" href="css/style.css" />
 
   <!-- Google tag (gtag.js) — Consent Mode v2: default denied dok korisnik ne prihvati (GDPR) -->
@@ -50,6 +53,16 @@
       <p data-i18n="intro.bodyP1">Bazu proizvoda koju koristimo (OpenFoodFacts) puni zajednica ljudi iz cijelog svijeta, uključujući i ovu aplikaciju — nije savršena, i mogu se desiti greške ili nepotpuni podaci.</p>
       <p data-i18n="intro.bodyP2">Čak i kad aplikacija pokaže 🟢 zeleno, to znači samo da nismo našli alergen u dostupnim podacima — ne garantuje da je proizvod 100% siguran. Uvijek provjeri deklaraciju na proizvodu, pogotovo kod ozbiljnih alergija.</p>
       <p data-i18n="intro.bodyP3">Ako primijetiš da je neki proizvod pogrešno označen, možeš ga ispraviti direktno u aplikaciji — hvala što pomažeš svima!</p>
+    </div>
+  </div>
+
+  <div class="intro-overlay" id="qr-overlay">
+    <div class="intro-card">
+      <button class="intro-close" id="qr-close" data-i18n-title="common.close" title="Zatvori">✕</button>
+      <h2 data-i18n="qr.title">📤 Podijeli aplikaciju</h2>
+      <div class="qr-code-wrap" id="qr-code-wrap"></div>
+      <p class="hint" style="text-align:center;" data-i18n="qr.hint">Neko drugi skenira ovaj kod svojom kamerom i odmah otvara imamAlergiju.</p>
+      <button class="btn" id="btn-qr-share" data-i18n="qr.shareBtn">📤 Podijeli link</button>
     </div>
   </div>
 
@@ -249,6 +262,7 @@
   <script src="js/offwrite.js"></script>
   <script src="js/profiles.js"></script>
   <script src="js/history.js"></script>
+  <script src="js/qrcode.js"></script>
   <script src="js/app.js"></script>
   <script src="js/consent.js"></script>
 

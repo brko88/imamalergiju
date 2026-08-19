@@ -269,9 +269,31 @@ async function shareProfile(profile) {
 }
 
 const btnShareApp = document.getElementById('btn-share-app');
+const qrOverlay = document.getElementById('qr-overlay');
+const qrClose = document.getElementById('qr-close');
+const qrCodeWrap = document.getElementById('qr-code-wrap');
+const btnQrShare = document.getElementById('btn-qr-share');
 
-btnShareApp.addEventListener('click', async () => {
-  const url = location.origin + location.pathname;
+function appUrl() {
+  return location.origin + location.pathname;
+}
+
+function renderAppQrCode() {
+  const qr = qrcode(0, 'M');
+  qr.addData(appUrl());
+  qr.make();
+  qrCodeWrap.innerHTML = qr.createSvgTag({ cellSize: 6, margin: 8 });
+}
+
+btnShareApp.addEventListener('click', () => {
+  renderAppQrCode();
+  qrOverlay.classList.add('active');
+});
+
+qrClose.addEventListener('click', () => qrOverlay.classList.remove('active'));
+
+btnQrShare.addEventListener('click', async () => {
+  const url = appUrl();
   const text = t('share.appText');
 
   if (navigator.share) {

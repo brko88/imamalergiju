@@ -685,6 +685,18 @@ footer {
   font-size: 1rem;
 }
 
+.qr-code-wrap {
+  display: flex;
+  justify-content: center;
+  margin: 4px 0 14px;
+}
+
+.qr-code-wrap svg {
+  width: 200px;
+  height: 200px;
+  border-radius: 12px;
+}
+
 .intro-close {
   position: absolute;
   top: 14px;

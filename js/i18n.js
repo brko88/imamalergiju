@@ -134,7 +134,10 @@ const STRINGS = {
     'consent.text': 'Koristimo Google Analytics da vidimo kako se aplikacija koristi i da je poboljšamo. Podaci se ne prodaju niti koriste za oglašavanje.',
     'consent.privacyLink': 'Politika privatnosti',
     'consent.accept': 'Prihvati',
-    'consent.reject': 'Odbij'
+    'consent.reject': 'Odbij',
+    'qr.title': '📤 Podijeli aplikaciju',
+    'qr.hint': 'Neko drugi skenira ovaj kod svojom kamerom i odmah otvara imamAlergiju.',
+    'qr.shareBtn': '📤 Podijeli link'
   },
   en: {
     'common.close': 'Close',
@@ -236,7 +239,10 @@ const STRINGS = {
     'consent.text': "We use Google Analytics to see how the app is used and to improve it. Data isn't sold or used for advertising.",
     'consent.privacyLink': 'Privacy policy',
     'consent.accept': 'Accept',
-    'consent.reject': 'Reject'
+    'consent.reject': 'Reject',
+    'qr.title': '📤 Share the app',
+    'qr.hint': 'Someone else scans this code with their camera and imamAlergiju opens right away.',
+    'qr.shareBtn': '📤 Share link'
   },
   de: {
     'common.close': 'Schließen',
@@ -338,7 +344,10 @@ const STRINGS = {
     'consent.text': 'Wir nutzen Google Analytics, um zu sehen, wie die App genutzt wird, und um sie zu verbessern. Daten werden nicht verkauft oder für Werbung genutzt.',
     'consent.privacyLink': 'Datenschutzerklärung',
     'consent.accept': 'Akzeptieren',
-    'consent.reject': 'Ablehnen'
+    'consent.reject': 'Ablehnen',
+    'qr.title': '📤 App teilen',
+    'qr.hint': 'Jemand anderes scannt diesen Code mit der Kamera und imamAlergiju öffnet sich sofort.',
+    'qr.shareBtn': '📤 Link teilen'
   }
 };
 
