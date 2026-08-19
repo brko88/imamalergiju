@@ -18,6 +18,7 @@ function setConsent(value) {
   localStorage.setItem(CONSENT_KEY, value);
   applyConsent(value);
   hideConsentBanner();
+  document.dispatchEvent(new CustomEvent('imamalergiju:consentDecided'));
 }
 
 function initConsent() {
@@ -30,6 +31,7 @@ function initConsent() {
   const stored = localStorage.getItem(CONSENT_KEY);
   if (stored) {
     applyConsent(stored);
+    document.dispatchEvent(new CustomEvent('imamalergiju:consentDecided'));
   } else if (localStorage.getItem('imamalergiju:introSeen')) {
     showConsentBanner();
   } else {

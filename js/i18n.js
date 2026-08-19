@@ -137,7 +137,10 @@ const STRINGS = {
     'consent.reject': 'Odbij',
     'qr.title': '📤 Podijeli aplikaciju',
     'qr.hint': 'Neko drugi skenira ovaj kod svojom kamerom i odmah otvara imamAlergiju.',
-    'qr.shareBtn': '📤 Podijeli link'
+    'qr.shareBtn': '📤 Podijeli link',
+    'install.text': 'Instaliraj imamAlergiju na početni ekran — otvara se odmah, kao prava aplikacija.',
+    'install.dismiss': 'Ne, hvala',
+    'install.accept': '📲 Instaliraj'
   },
   en: {
     'common.close': 'Close',
@@ -242,7 +245,10 @@ const STRINGS = {
     'consent.reject': 'Reject',
     'qr.title': '📤 Share the app',
     'qr.hint': 'Someone else scans this code with their camera and imamAlergiju opens right away.',
-    'qr.shareBtn': '📤 Share link'
+    'qr.shareBtn': '📤 Share link',
+    'install.text': 'Install imamAlergiju on your home screen — it opens instantly, like a real app.',
+    'install.dismiss': 'No thanks',
+    'install.accept': '📲 Install'
   },
   de: {
     'common.close': 'Schließen',
@@ -347,7 +353,10 @@ const STRINGS = {
     'consent.reject': 'Ablehnen',
     'qr.title': '📤 App teilen',
     'qr.hint': 'Jemand anderes scannt diesen Code mit der Kamera und imamAlergiju öffnet sich sofort.',
-    'qr.shareBtn': '📤 Link teilen'
+    'qr.shareBtn': '📤 Link teilen',
+    'install.text': 'Installiere imamAlergiju auf dem Startbildschirm — öffnet sich sofort, wie eine echte App.',
+    'install.dismiss': 'Nein, danke',
+    'install.accept': '📲 Installieren'
   }
 };
 

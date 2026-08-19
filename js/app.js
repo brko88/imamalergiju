@@ -543,6 +543,13 @@ function setBanner(level, text) {
   semaphoreBanner.textContent = text;
 }
 
+// Samo agregatni ishod (nikad barkod/naziv proizvoda) — pokazuje gdje baza
+// najviše "puca" (npr. udio not_found), bez slanja podataka o konkretnim
+// proizvodima analitici.
+function trackScanOutcome(outcome) {
+  gtag('event', 'scan_result', { outcome });
+}
+
 async function handleBarcode(code) {
   stopScanner();
   closeMagnifier();
@@ -571,6 +578,7 @@ async function handleBarcode(code) {
     product = await fetchProduct(code);
   } catch (err) {
     setBanner('unknown', t('scan.networkError'));
+    trackScanOutcome('network_error');
     return;
   }
 
@@ -579,6 +587,7 @@ async function handleBarcode(code) {
     resultDetail.textContent = t('scan.notFoundDetail');
     btnAddProduct.style.display = 'block';
     addHistoryEntry({ barcode: code, name: null, level: 'unknown', matchedNames: [], profileName: activeProfile.name });
+    trackScanOutcome('not_found');
     return;
   }
 
@@ -604,6 +613,7 @@ async function handleBarcode(code) {
     disclaimerBanner.classList.add('emphasized');
   }
   addHistoryEntry({ barcode: code, name: product.name, level, matchedNames: matched.map((a) => allergenLabel(a)), profileName: activeProfile.name });
+  trackScanOutcome(level);
 }
 
 async function startScanner() {
@@ -828,6 +838,60 @@ if ('serviceWorker' in navigator) {
     location.reload();
   });
 }
+
+// --- Prompt za instalaciju na početni ekran ---
+// Chrome/Edge/Android javljaju da je app instalabilan preko ovog eventa; iOS/Safari
+// ga nikad ne šalje (nema programski poziv tamo), pa se na tim browserima ovaj
+// banner jednostavno nikad ne pojavi — nema potrebe za posebnim provjerama.
+
+const INSTALL_DISMISSED_KEY = 'imamalergiju:installDismissedAt';
+const INSTALL_SNOOZE_MS = 14 * 24 * 60 * 60 * 1000;
+
+const installBanner = document.getElementById('install-banner');
+const btnInstallAccept = document.getElementById('btn-install-accept');
+const btnInstallDismiss = document.getElementById('btn-install-dismiss');
+
+let deferredInstallPrompt = null;
+let consentDecided = !!localStorage.getItem('imamalergiju:consent');
+
+function installDismissedRecently() {
+  const ts = Number(localStorage.getItem(INSTALL_DISMISSED_KEY) || 0);
+  return Date.now() - ts < INSTALL_SNOOZE_MS;
+}
+
+function maybeShowInstallBanner() {
+  if (!deferredInstallPrompt || !consentDecided || installDismissedRecently()) return;
+  installBanner.classList.add('active');
+}
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredInstallPrompt = e;
+  maybeShowInstallBanner();
+});
+
+window.addEventListener('appinstalled', () => {
+  deferredInstallPrompt = null;
+  installBanner.classList.remove('active');
+});
+
+document.addEventListener('imamalergiju:consentDecided', () => {
+  consentDecided = true;
+  maybeShowInstallBanner();
+});
+
+btnInstallAccept.addEventListener('click', async () => {
+  installBanner.classList.remove('active');
+  if (!deferredInstallPrompt) return;
+  deferredInstallPrompt.prompt();
+  await deferredInstallPrompt.userChoice;
+  deferredInstallPrompt = null;
+});
+
+btnInstallDismiss.addEventListener('click', () => {
+  installBanner.classList.remove('active');
+  localStorage.setItem(INSTALL_DISMISSED_KEY, String(Date.now()));
+});
 
 // "Pritisni nazad ponovo za izlaz" — spriječava slučajan izlazak iz app-a
 // jednim dodirom Android nazad dugmeta kad više nema kuda unutar app-a da se
