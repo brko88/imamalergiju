@@ -99,6 +99,28 @@ let stream = null;
 let detectLoopId = null;
 let pendingCode = null;
 let pendingCodeCount = 0;
+let zxingReader = null;
+let zxingLoadPromise = null;
+
+// iOS/Safari (i svi iOS browseri, jer svi koriste WebKit) nikad nisu implementirali
+// BarcodeDetector — bez ovog fallbacka, skeniranje kamerom je na iPhoneu potpuno
+// nemoguće. Biblioteka se učitava tek kad zatreba, pa Android/Chrome korisnici
+// (kojima native API već radi) ne plaćaju cijenu tog dodatnog fajla.
+function loadZXing() {
+  if (window.ZXing) return Promise.resolve();
+  if (zxingLoadPromise) return zxingLoadPromise;
+  zxingLoadPromise = new Promise((resolve, reject) => {
+    const script = document.createElement('script');
+    script.src = 'js/zxing.js';
+    script.onload = resolve;
+    script.onerror = () => {
+      zxingLoadPromise = null;
+      reject(new Error('failed to load zxing.js'));
+    };
+    document.head.appendChild(script);
+  });
+  return zxingLoadPromise;
+}
 
 // Opšta GS1 provjera kontrolne cifre (radi za EAN-13, EAN-8, UPC-A) — kamera
 // ponekad pogrešno pročita cifru zbog loše svjetlosti/ugla, pa broj koji ne
@@ -616,15 +638,57 @@ async function handleBarcode(code) {
   trackScanOutcome(level);
 }
 
+function considerCandidate(candidate) {
+  if (!isValidGtinChecksum(candidate)) return;
+  if (candidate === pendingCode) {
+    pendingCodeCount++;
+  } else {
+    pendingCode = candidate;
+    pendingCodeCount = 1;
+  }
+  // tražimo isti broj u 2 uzastopna framea prije nego ga prihvatimo —
+  // filtrira jednokratne pogrešne očitaje.
+  if (pendingCodeCount >= 2) {
+    handleBarcode(candidate);
+  }
+}
+
+function startNativeDetectLoop() {
+  const detector = new BarcodeDetector({
+    formats: ['ean_13', 'ean_8', 'upc_a', 'upc_e']
+  });
+
+  const detect = async () => {
+    if (!stream) return;
+    try {
+      const codes = await detector.detect(video);
+      if (codes.length > 0) considerCandidate(codes[0].rawValue);
+    } catch (err) {
+      // frame not ready yet or detection glitch — keep trying
+    }
+    if (stream) detectLoopId = requestAnimationFrame(detect);
+  };
+
+  detectLoopId = requestAnimationFrame(detect);
+}
+
+function startZXingDetectLoop() {
+  const hints = new Map();
+  hints.set(ZXing.DecodeHintType.POSSIBLE_FORMATS, [
+    ZXing.BarcodeFormat.EAN_13,
+    ZXing.BarcodeFormat.EAN_8,
+    ZXing.BarcodeFormat.UPC_A,
+    ZXing.BarcodeFormat.UPC_E
+  ]);
+  zxingReader = new ZXing.BrowserMultiFormatReader(hints);
+  zxingReader.decodeFromVideoElementContinuously(video, (result) => {
+    if (!stream || !result) return;
+    considerCandidate(result.getText());
+  });
+}
+
 async function startScanner() {
   closeMagnifier();
-  if (!('BarcodeDetector' in window)) {
-    scanStatus.textContent = t('scanner.unsupported');
-    scanStatus.classList.add('error');
-    scannerView.classList.add('active');
-    startView.style.display = 'none';
-    return;
-  }
 
   try {
     stream = await navigator.mediaDevices.getUserMedia({
@@ -645,44 +709,28 @@ async function startScanner() {
   pendingCode = null;
   pendingCodeCount = 0;
 
-  const detector = new BarcodeDetector({
-    formats: ['ean_13', 'ean_8', 'upc_a', 'upc_e']
-  });
+  if ('BarcodeDetector' in window) {
+    startNativeDetectLoop();
+    return;
+  }
 
-  const detect = async () => {
-    if (!stream) return;
-    try {
-      const codes = await detector.detect(video);
-      if (codes.length > 0) {
-        const candidate = codes[0].rawValue;
-        if (isValidGtinChecksum(candidate)) {
-          if (candidate === pendingCode) {
-            pendingCodeCount++;
-          } else {
-            pendingCode = candidate;
-            pendingCodeCount = 1;
-          }
-          // tražimo isti broj u 2 uzastopna framea prije nego ga prihvatimo —
-          // filtrira jednokratne pogrešne očitaje.
-          if (pendingCodeCount >= 2) {
-            handleBarcode(candidate);
-            return;
-          }
-        }
-      }
-    } catch (err) {
-      // frame not ready yet or detection glitch — keep trying
-    }
-    detectLoopId = requestAnimationFrame(detect);
-  };
-
-  detectLoopId = requestAnimationFrame(detect);
+  try {
+    await loadZXing();
+    startZXingDetectLoop();
+  } catch (err) {
+    scanStatus.textContent = t('scanner.unsupported');
+    scanStatus.classList.add('error');
+  }
 }
 
 function stopScanner() {
   if (detectLoopId) {
     cancelAnimationFrame(detectLoopId);
     detectLoopId = null;
+  }
+  if (zxingReader) {
+    zxingReader.reset();
+    zxingReader = null;
   }
   if (stream) {
     stream.getTracks().forEach((track) => track.stop());
