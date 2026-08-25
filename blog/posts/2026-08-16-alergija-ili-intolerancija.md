@@ -19,7 +19,7 @@ Ako je u pitanju prava alergija, "malo" ne postoji — ni tragovi, ni "samo je b
 
 ## Zato postoji baš 14 alergena
 
-EU zakon propisuje 14 alergena koje proizvođači moraju navesti na deklaraciji (gluten, mlijeko, jaja, kikiriki, orašasti plodovi, riba, rakovi, mekušci, soja, celer, gorušica, susam, lupina, sumpor-dioksid/sulfiti). To nije nasumična lista — to su alergeni za koje je nauka utvrdila da izazivaju najozbiljnije reakcije kod najvećeg broja ljudi. Zato imamAlergiju provjerava baš njih.
+EU zakon propisuje 14 alergena koje proizvođači moraju navesti na deklaraciji (gluten, mlijeko, jaja, kikiriki, orašasti plodovi, riba, rakovi, mekušci, soja, celer, gorušica, susam, lupina, sumpor-dioksid/sulfiti). To nije nasumična lista — to su alergeni za koje je nauka utvrdila da izazivaju najozbiljnije reakcije kod najvećeg broja ljudi. Zato imamAlergiju provjerava baš njih. Pogledaj i naš vodič o [čitanju deklaracije](2026-08-19-kako-citati-deklaraciju.html) da znaš tačno gdje da ih tražiš.
 
 ## Par praktičnih savjeta
 

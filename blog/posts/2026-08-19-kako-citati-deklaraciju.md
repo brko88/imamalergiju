@@ -14,7 +14,7 @@ Po EU zakonu, svih 14 glavnih alergena (gluten, mlijeko, jaja, kikiriki, orašas
 - **Sadrži X** — alergen je namjerno u proizvodu, kao sastojak. Ovo je obavezno navesti po zakonu.
 - **Može sadržati tragove X** — ovo je **dobrovoljna** napomena proizvođača, ne zakonska obaveza. Znači da se proizvod pravi u fabrici/na liniji gdje se koristi i taj alergen, pa postoji rizik od unakrsne kontaminacije, iako X nije sastojak.
 
-Za nekoga s pravom alergijom, "tragovi" nisu sitnica — mala količina može biti dovoljna za reakciju. Ali pošto je ova napomena dobrovoljna, njeno **odsustvo ne garantuje ništa** — proizvođač je jednostavno mogao odlučiti da je ne stavi, čak i ako rizik postoji.
+Za nekoga s [pravom alergijom](2026-08-16-alergija-ili-intolerancija.html), "tragovi" nisu sitnica — mala količina može biti dovoljna za reakciju. Ali pošto je ova napomena dobrovoljna, njeno **odsustvo ne garantuje ništa** — proizvođač je jednostavno mogao odlučiti da je ne stavi, čak i ako rizik postoji.
 
 ## Alergeni se često kriju iza drugih imena
 

@@ -2,7 +2,7 @@
 // Ako se ovaj fajl ne promijeni, browser vidi identičan sw.js i nikad ne primijeti
 // da postoji nova verzija — auto-refresh ispod se onda nikad ne aktivira, i
 // korisnik ostaje zaglavljen na staroj verziji dok ručno ne očisti keš.
-const CACHE_NAME = 'imamalergiju-v48';
+const CACHE_NAME = 'imamalergiju-v49';
 const APP_SHELL = [
   './',
   './index.html',

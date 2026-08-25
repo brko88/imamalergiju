@@ -219,8 +219,12 @@ function build() {
   fs.writeFileSync(path.join(DIST_DIR, 'index.html'), indexHtml, 'utf8');
   console.log(`✓ index.html (${posts.length} objava)`);
 
-  const sitemapUrls = [SITE_URL, ...posts.map((p) => p.url)]
-    .map((url) => `  <url><loc>${url}</loc></url>`)
+  const sitemapEntries = [
+    { url: SITE_URL, lastmod: posts[0]?.date },
+    ...posts.map((p) => ({ url: p.url, lastmod: p.date }))
+  ];
+  const sitemapUrls = sitemapEntries
+    .map(({ url, lastmod }) => `  <url><loc>${url}</loc>${lastmod ? `<lastmod>${lastmod}</lastmod>` : ''}</url>`)
     .join('\n');
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${sitemapUrls}\n</urlset>\n`;
   fs.writeFileSync(path.join(DIST_DIR, 'sitemap.xml'), sitemap, 'utf8');

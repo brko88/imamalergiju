@@ -23,7 +23,7 @@ Oko **4-6 mjeseci**, onda kada je beba spremna za čvrstu hranu uopšte (sjedi u
 
 ## Ako je dijete visokog rizika
 
-Porodična istorija alergija, ili već postojeći umjeren do težak ekcem kod bebe, ubrajaju se u faktore povećanog rizika. U tom slučaju **razgovaraj sa pedijatrom prije** uvođenja najčešćih alergena (posebno kikirikija i jaja) — ljekar može predložiti uvođenje pod nadzorom u ordinaciji, ili čak alergološko testiranje prije prve doze kod kuće.
+[Porodična istorija alergija](2026-08-16-alergija-ili-intolerancija.html), ili već postojeći umjeren do težak ekcem kod bebe, ubrajaju se u faktore povećanog rizika. U tom slučaju **razgovaraj sa pedijatrom prije** uvođenja najčešćih alergena (posebno kikirikija i jaja) — ljekar može predložiti uvođenje pod nadzorom u ordinaciji, ili čak alergološko testiranje prije prve doze kod kuće.
 
 ## Znakovi na koje paziti
 

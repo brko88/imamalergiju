@@ -73,4 +73,4 @@ Klik otvara listu — izabereš zastavicu i sve se odmah prevede. Prvi put kad o
 
 Baza koju koristimo (OpenFoodFacts) je zajednička — puni je svako ko je koristi. Ako želiš da ti ispravke i dodavanja idu bez kucanja lozinke svaki put, u Profil tabu sačuvaj svoj OpenFoodFacts nalog jednom (vidi se na slici profila iznad, ispod liste osoba).
 
-To je to — sad znaš sve. Ako ti nešto nije jasno ili imaš prijedlog, javi mi se preko bloga ili direktno.
+To je to — sad znaš sve. Ako ti nešto nije jasno ili imaš prijedlog, javi mi se preko bloga ili direktno — [dobrodošao/la na blog](2026-08-11-dobrodoslica.html), tu ćemo pisati o svemu novom.
