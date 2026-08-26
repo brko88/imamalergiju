@@ -1,6 +1,7 @@
 ---
 title: Dvije godine s lješnjakom — zašto sam napravio imamAlergiju
 date: 2026-08-11
+image: images/cover-zasto.png
 ---
 
 Sjećam se tog dana kao da je bio juče. Sve je krenulo iznenada — ništa u porodici nije nagovještavalo da ćemo se naći u čekaonici, uplašeni, tražeći odgovore. Dijete koje je do tada jelo šta i mi, odjednom je reagovalo na nešto sitno, gotovo nevidljivo u hrani. Lješnjak.

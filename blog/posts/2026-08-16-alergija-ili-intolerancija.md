@@ -1,6 +1,7 @@
 ---
 title: Alergija ili intolerancija? Razlika koju bi svaki roditelj trebao znati
 date: 2026-08-16
+image: images/cover-alergija-intolerancija.png
 ---
 
 Ova dva pojma se stalno miješaju — "alergičan sam na mlijeko" i "ne podnosim mlijeko" ljudi često kažu kao da je isto. Nije, i ta razlika ume da bude bitna, ponekad i opasna.

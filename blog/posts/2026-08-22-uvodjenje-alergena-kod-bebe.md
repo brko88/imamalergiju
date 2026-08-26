@@ -1,6 +1,7 @@
 ---
 title: Uvođenje alergena kod bebe — šta kažu nove smjernice
 date: 2026-08-22
+image: images/cover-beba.png
 ---
 
 Donedavno je standardni savjet bio: kikiriki, jaja i slično čekaj do treće godine, "za svaki slučaj". Ispostavilo se da je to bilo pogrešno — i to ne malo. Evo šta danas kažu pedijatrijske smjernice.

@@ -1,6 +1,7 @@
 ---
 title: Kako čitati deklaraciju na proizvodu — na šta stvarno obratiti pažnju
 date: 2026-08-19
+image: images/cover-deklaracija.png
 ---
 
 "Pa piše na deklaraciji" — da, ali deklaracije su često napisane sitnim slovima, na jeziku koji zvuči kao hemija, i s formulacijama koje same po sebi ne znače ono što misliš da znače. Evo na šta stvarno gledati.

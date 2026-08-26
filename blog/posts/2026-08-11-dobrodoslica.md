@@ -1,6 +1,7 @@
 ---
 title: Dobrodošli na imamAlergiju blog
 date: 2026-08-11
+image: images/cover-dobrodoslica.png
 ---
 
 Dobrodošli! Ovdje ćemo pisati o razvoju aplikacije **imamAlergiju**, o alergijama, i o iskustvima roditelja i djece koji se s njima nose svaki dan — o svemu što nam pomaže da prodavnicu pretvorimo iz stresnog mjesta u nešto malo jednostavnije.

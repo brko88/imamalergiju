@@ -1,6 +1,7 @@
 ---
 title: Šta raditi kod alergijske reakcije — kad je hitno, a kad nije
 date: 2026-08-26
+image: images/cover-hitno.png
 ---
 
 Nadamo se da ti ovaj tekst nikad neće zatrebati uživo. Ali ako se desi, nema vremena za guglanje usred panike — bolje je znati unaprijed. Evo na šta paziti i šta konkretno uraditi.
